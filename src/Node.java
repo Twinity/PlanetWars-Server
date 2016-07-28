@@ -3,7 +3,7 @@
  */
 public class Node {
     public static enum Side {
-        P1, P2, Neutral;
+        Neutral, P1, P2;
     }
 
     private int _id;
