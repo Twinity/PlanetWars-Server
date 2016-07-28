@@ -9,16 +9,13 @@ public class Node {
     private int _id;
     private int _armyCount;
     private Side _side;
+    private int[] _adjacents;
 
-    public Node(int inId) throws IllegalArgumentException {
-        if (inId > 100) {
-            _id = inId;
-        } else {
-            throw new IllegalArgumentException();
-        }
-
-        setArmyCount(0);
-        setSide(Side.Neutral);
+    public Node(int inId, int inArmyCount, Side inSide, int[] inAdjacents) throws IllegalArgumentException {
+        setId(inId);
+        setArmyCount(inArmyCount);
+        setSide(inSide);
+        setAdjacents(inAdjacents);
     }
 
     // Getters
@@ -34,7 +31,19 @@ public class Node {
         return _side;
     }
 
+    public int[] getAdjacents() {
+        return _adjacents;
+    }
+
     // Setters
+    public void setId(int inId) {
+        if (inId > 100) {
+            _id = inId;
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
+
     public void setArmyCount(int inNumber) throws IllegalArgumentException {
         if (inNumber > 0) {
             _armyCount = inNumber;
@@ -50,6 +59,18 @@ public class Node {
             _side = inSide;
         }
 
+    }
+
+    public void setAdjacents(int[] inAdjacents) throws IllegalArgumentException {
+        _adjacents = new int[inAdjacents.length];
+        int idx = 0;
+        for (int id : inAdjacents) {
+            if (id > 100) {
+                _adjacents[idx] = inAdjacents[idx++];
+            } else {
+                throw new IllegalArgumentException();
+            }
+        }
     }
 
 }
