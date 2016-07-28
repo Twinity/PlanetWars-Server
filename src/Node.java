@@ -2,7 +2,7 @@
  * Created by KaTaNa on 7/29/2016.
  */
 public class Node {
-    private enum Side {
+    public static enum Side {
         P1, P2, Neutral;
     }
 
