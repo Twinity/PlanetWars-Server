@@ -6,61 +6,61 @@
 			"id": 101,
 			"armyCount": 10,
 			"side": 1,
-			"adjacent": ["102", "103", "104"]
+			"adjacents": [102, 103, 104]
 		},
 		{
 			"id": 102,
 			"armyCount": 0,
 			"side": 0,
-			"adjacent": ["101", "103", "105"]
+			"adjacents": [101, 103, 105]
 		},
 		{
 			"id": 103,
 			"armyCount": 0,
 			"side": 0,
-			"adjacent": ["101", "102", "104", "105", "106", "107"]
+			"adjacents": [101, 102, 104, 105, 106, 107]
 		},
 		{
 			"id": 104,
 			"armyCount": 0,
 			"side": 0,
-			"adjacent": ["101", "103", "107"]
+			"adjacents": [101, 103, 107]
 		},
 		{
 			"id": 105,
 			"armyCount": 0,
 			"side": 0,
-			"adjacent": ["102", "103", "106", "108"]
+			"adjacents": [102, 103, 106, 108]
 		},
 		{
 			"id": 106,
 			"armyCount": 0,
 			"side": 0,
-			"adjacent": ["103", "105", "107", "108", "109", "110"]
+			"adjacents": [103, 105, 107, 108, 109, 110]
 		},
 		{
 			"id": 107,
 			"armyCount": 0,
 			"side": 0,
-			"adjacent": ["103", "104", "106", "109"]
+			"adjacents": [103, 104, 106, 109]
 		},
 		{
 			"id": 108,
 			"armyCount": 0,
 			"side": 0,
-			"adjacent": ["105", "106", "110"]
+			"adjacents": [105, 106, 110]
 		},
 		{
 			"id": 109,
 			"armyCount": 0,
 			"side": 0,
-			"adjacent": ["106", "107", "110"]
+			"adjacents": [106, 107, 110]
 		},
 		{
 			"id": 110,
 			"armyCount": 10,
 			"side": 2,
-			"adjacent": ["106", "108", "109"]
+			"adjacents": [106, 108, 109]
 		}
 	]
 }
