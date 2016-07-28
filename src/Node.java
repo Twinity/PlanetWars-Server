@@ -10,6 +10,17 @@ public class Node {
     private int _armyCount;
     private Side _side;
 
+    public Node(int inId) throws IllegalArgumentException {
+        if (inId > 100) {
+            _id = inId;
+        } else {
+            throw new IllegalArgumentException();
+        }
+
+        setArmyCount(0);
+        setSide(Side.Neutral);
+    }
+
     // Getters
     public int getId() {
         return _id;
