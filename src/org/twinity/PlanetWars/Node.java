@@ -3,9 +3,19 @@
  */
 package org.twinity.PlanetWars;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Node {
+
     public static enum Side {
-        Neutral, P1, P2
+        @SerializedName("0")
+        Neutral,
+
+        @SerializedName("1")
+        P1,
+
+        @SerializedName("2")
+        P2
     }
 
     private int id;
