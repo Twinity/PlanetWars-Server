@@ -1,6 +1,8 @@
 /**
  * Created by KaTaNa on 7/29/2016.
  */
+package org.twinity.PlanetWars;
+
 public class Node {
     public static enum Side {
         Neutral, P1, P2

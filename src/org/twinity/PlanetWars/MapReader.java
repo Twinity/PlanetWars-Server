@@ -1,6 +1,7 @@
 /**
  * Created by KaTaNa on 7/29/2016.
  */
+package org.twinity.PlanetWars;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
