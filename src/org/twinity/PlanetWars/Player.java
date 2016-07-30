@@ -6,11 +6,9 @@ package org.twinity.PlanetWars;
 public class Player {
     private Node.Side _side;
     private AI _ai;
-    private World _world;
 
     public Player(Node.Side inSide, World inWorld) {
         _side = inSide;
-        _world = inWorld;
         _ai = new AI(this);
     }
 
@@ -21,10 +19,6 @@ public class Player {
 
     public AI getAI() {
         return _ai;
-    }
-
-    public World getWorld() {
-        return _world;
     }
 
 }

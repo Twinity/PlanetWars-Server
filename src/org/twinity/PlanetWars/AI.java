@@ -5,24 +5,20 @@ package org.twinity.PlanetWars;
  */
 public class AI {
 
-    private Player _player;
     private World _world;
 
-    public AI(Player inPlayer) {
-        _player = inPlayer;
-        _world = inPlayer.getWorld();
+    public AI(World inWorld) {
+        _world = inWorld;
     }
 
     public World getWorld() {
         return _world;
     }
 
-    public Player Me() {
-        return _player;
-    }
 
     public void doTurn() {
-        Node node = getWorld().getMap().getMyNodes(Me())[0];
-        System.out.println(node.getSide());
+        _world.moveArmy(_world.getMap().getMyNodes(_player)[0].getId()
+                , _world.getMap().getMyNodes(_player)[0].getAdjacents()[0]
+                , _world.getMap().getMyNodes(_player)[0].getArmyCount());
     }
 }

@@ -15,7 +15,7 @@ public class World {
     private int _turnNumber = 1;
     private ArrayList<ArmyMovement> _armyMovement;
 
-    public World() throws FileNotFoundException {
+    public World() {
         _armyMovement = new ArrayList<>();
         readMap();
 
@@ -36,11 +36,21 @@ public class World {
     }
 
     private void readMap() {
-        MapReader reader = new MapReader("C:\\Users\\KaTaNa\\IdeaProjects\\PlanetWars\\out\\production\\PlanetWars\\map.json");
         try {
+            MapReader reader = new MapReader("C:\\Users\\KaTaNa\\IdeaProjects\\PlanetWars\\out\\production\\PlanetWars\\map.json");
             _map = reader.read();
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
+        }
+    }
+
+    private void updateMap(Player inPlayer) {
+        for (int i = 0; i < _armyMovement.size(); i++) {
+            if (Node.isMyNode(_armyMovement.get(i)._destination, inPlayer) != -1) {
+                this.getMap().getNodes()[Node.isMyNode(_armyMovement.get(i)._destination, inPlayer)].setArmyCount(
+                        Node.isMyNode(_armyMovement.get(i)._destination
+                );
+            }
         }
     }
 
@@ -72,7 +82,7 @@ public class World {
                 }
                 if (m == 0)
                     _armyMovement.remove(i);
-                else{
+                else {
                     if (_armyMovement.get(i)._armyCount < 0)
                         _armyMovement.get(i)._armyCount = 0;
                     else if (_armyMovement.get(i)._armyCount > inPlayer.getWorld().getMap().getMyNodes(inPlayer)[j].getArmyCount())

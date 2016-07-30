@@ -85,4 +85,11 @@ public class Node {
         }
     }
 
+    public static int isMyNode(int inId, Player inPlayer){
+        for (int i = 0; i < inPlayer.getWorld().getMap().getMyNodes(inPlayer).length; i++) {
+            if (inId == inPlayer.getWorld().getMap().getMyNodes(inPlayer)[i].getId())
+                return i;
+        }
+        return -1;
+    }
 }
