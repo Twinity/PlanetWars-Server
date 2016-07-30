@@ -24,6 +24,7 @@ public class Map {
         return nodes;
     }
 
+    // Other Methods
     public Node[] getMyNodes(int inMyId) {
         ArrayList<Node> myNodes = new ArrayList<>();
         for (Node node : this.getAllNodes())
@@ -49,6 +50,20 @@ public class Map {
                 freeNodes.add(node);
 
         return freeNodes.toArray(new Node[freeNodes.size()]);
+    }
+
+    public boolean isMyNode(int inNodeId, int inMyId) {
+        for (Node node : this.getMyNodes(inMyId))
+            if (node.getId() == inNodeId)
+                return true;
+        return false;
+    }
+
+    public Node getNode(int inNodeId) {
+        for (Node node : this.getAllNodes())
+            if (node.getId() == inNodeId)
+                return node;
+        return null;
     }
 
 }
