@@ -1,10 +1,10 @@
-/**
- * Created by KaTaNa on 7/29/2016.
- */
 package org.twinity.PlanetWars;
 
 import java.util.ArrayList;
 
+/**
+ * Created by KaTaNa on 7/29/2016.
+ */
 public class Map {
 
     private int nodesCount;
@@ -20,41 +20,35 @@ public class Map {
         return turns;
     }
 
-    public Node[] getNodes() {
+    public Node[] getAllNodes() {
         return nodes;
     }
 
-    public Node[] getMyNodes(Player inPlayer) {
+    public Node[] getMyNodes(int inMyId) {
         ArrayList<Node> myNodes = new ArrayList<>();
-        for(Node node : this.getNodes()) {
-            if (node.getSide() == inPlayer.getSide()) {
+        for (Node node : this.getAllNodes())
+            if (node.getOwner() == inMyId)
                 myNodes.add(node);
-            }
-        }
 
         return myNodes.toArray(new Node[myNodes.size()]);
     }
 
-    public Node[] getOpponentNodes(Player inPlayer) {
-        ArrayList<Node> enemyNodes = new ArrayList<>();
-        for(Node node : this.getNodes()) {
-            if (node.getSide() != inPlayer.getSide() && node.getSide() != Node.Side.Neutral) {
-                enemyNodes.add(node);
-            }
-        }
+    public Node[] getOpponentNodes(int inMyId) {
+        ArrayList<Node> opponentNodes = new ArrayList<>();
+        for (Node node : this.getAllNodes())
+            if (node.getOwner() != inMyId && node.getOwner() != 0)
+                opponentNodes.add(node);
 
-        return enemyNodes.toArray(new Node[enemyNodes.size()]);
+        return opponentNodes.toArray(new Node[opponentNodes.size()]);
     }
 
-    public Node[] getFreeNodes(Player inPlayer) {
-        ArrayList<Node> neutralNodes = new ArrayList<>();
-        for(Node node : this.getNodes()) {
-            if (node.getSide() == Node.Side.Neutral) {
-                neutralNodes.add(node);
-            }
-        }
+    public Node[] getFreeNodes() {
+        ArrayList<Node> freeNodes = new ArrayList<>();
+        for (Node node : this.getAllNodes())
+            if (node.getOwner() == 0)
+                freeNodes.add(node);
 
-        return neutralNodes.toArray(new Node[neutralNodes.size()]);
+        return freeNodes.toArray(new Node[freeNodes.size()]);
     }
 
 }

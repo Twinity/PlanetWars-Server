@@ -1,34 +1,14 @@
-/**
- * Created by KaTaNa on 7/29/2016.
- */
 package org.twinity.PlanetWars;
 
-import com.google.gson.annotations.SerializedName;
-
+/**
+ * a NODE is a vertex in a graph
+ */
 public class Node {
-
-    public static enum Side {
-        @SerializedName("0")
-        Neutral,
-
-        @SerializedName("1")
-        P1,
-
-        @SerializedName("2")
-        P2
-    }
 
     private int id;
     private int armyCount;
-    private Side side;
+    private int owner;
     private int[] adjacents;
-
-    public Node(int inId, int inArmyCount, Side inSide, int[] inAdjacents) throws IllegalArgumentException {
-        setId(inId);
-        setArmyCount(inArmyCount);
-        setSide(inSide);
-        setAdjacents(inAdjacents);
-    }
 
     // Getters
     public int getId() {
@@ -39,8 +19,8 @@ public class Node {
         return armyCount;
     }
 
-    public Side getSide() {
-        return side;
+    public int getOwner() {
+        return owner;
     }
 
     public int[] getAdjacents() {
@@ -48,14 +28,6 @@ public class Node {
     }
 
     // Setters
-    public void setId(int inId) {
-        if (inId > 100) {
-            id = inId;
-        } else {
-            throw new IllegalArgumentException();
-        }
-    }
-
     public void setArmyCount(int inNumber) throws IllegalArgumentException {
         if (inNumber > 0) {
             armyCount = inNumber;
@@ -64,32 +36,13 @@ public class Node {
         }
     }
 
-    public void setSide(Side inSide) throws IllegalArgumentException {
-        if(inSide != Side.P1 && inSide != Side.P2 && inSide != Side.Neutral) {
-            throw new IllegalArgumentException();
+    public void setOwner(int inOwner) throws IllegalArgumentException {
+        if (inOwner >= 0 && inOwner <= 2) {
+            owner = inOwner;
         } else {
-            side = inSide;
+            throw new IllegalArgumentException();
         }
 
     }
 
-    public void setAdjacents(int[] inAdjacents) throws IllegalArgumentException {
-        adjacents = new int[inAdjacents.length];
-        int idx = 0;
-        for (int id : inAdjacents) {
-            if (id > 100) {
-                adjacents[idx] = inAdjacents[idx++];
-            } else {
-                throw new IllegalArgumentException();
-            }
-        }
-    }
-
-    public static int isMyNode(int inId, Player inPlayer){
-        for (int i = 0; i < inPlayer.getWorld().getMap().getMyNodes(inPlayer).length; i++) {
-            if (inId == inPlayer.getWorld().getMap().getMyNodes(inPlayer)[i].getId())
-                return i;
-        }
-        return -1;
-    }
 }
