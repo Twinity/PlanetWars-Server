@@ -8,13 +8,8 @@ public class Player {
     private AI _ai;
     private World _world;
 
-    public Player(Node.Side inSide, World inWorld) throws IllegalArgumentException {
-        try {
-            _side = inSide;
-        } catch (IllegalArgumentException ex) {
-            System.out.println(ex.getMessage());
-        }
-
+    public Player(Node.Side inSide, World inWorld) {
+        _side = inSide;
         _world = inWorld;
         _ai = new AI(this);
     }
@@ -22,6 +17,10 @@ public class Player {
     // Getters
     public Node.Side getSide() {
         return _side;
+    }
+
+    public AI getAI() {
+        return _ai;
     }
 
     public World getWorld() {

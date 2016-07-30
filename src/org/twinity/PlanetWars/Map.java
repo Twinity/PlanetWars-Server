@@ -16,7 +16,7 @@ public class Map {
         return nodesCount;
     }
 
-    public int getTurns() {
+    public int getTotalTurns() {
         return turns;
     }
 
@@ -35,7 +35,7 @@ public class Map {
         return myNodes.toArray(new Node[myNodes.size()]);
     }
 
-    public Node[] getEnemyNodes(Player inPlayer) {
+    public Node[] getOpponentNodes(Player inPlayer) {
         ArrayList<Node> enemyNodes = new ArrayList<>();
         for(Node node : this.getNodes()) {
             if (node.getSide() != inPlayer.getSide() && node.getSide() != Node.Side.Neutral) {
@@ -46,7 +46,7 @@ public class Map {
         return enemyNodes.toArray(new Node[enemyNodes.size()]);
     }
 
-    public Node[] getNeutralNodes(Player inPlayer) {
+    public Node[] getFreeNodes(Player inPlayer) {
         ArrayList<Node> neutralNodes = new ArrayList<>();
         for(Node node : this.getNodes()) {
             if (node.getSide() == Node.Side.Neutral) {

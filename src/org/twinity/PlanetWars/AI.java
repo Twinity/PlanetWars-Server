@@ -11,7 +11,6 @@ public class AI {
     public AI(Player inPlayer) {
         _player = inPlayer;
         _world = inPlayer.getWorld();
-        doTurn();
     }
 
     public World getWorld() {
