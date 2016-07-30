@@ -5,20 +5,7 @@ package org.twinity.PlanetWars;
  */
 public class AI {
 
-    private World _world;
+    public void doTurn(World inWorld) {
 
-    public AI(World inWorld) {
-        _world = inWorld;
-    }
-
-    public World getWorld() {
-        return _world;
-    }
-
-
-    public void doTurn() {
-        _world.moveArmy(_world.getMap().getMyNodes(_player)[0].getId()
-                , _world.getMap().getMyNodes(_player)[0].getAdjacents()[0]
-                , _world.getMap().getMyNodes(_player)[0].getArmyCount());
     }
 }
