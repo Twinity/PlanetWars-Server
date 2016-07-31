@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class Map {
 
     private int nodesCount;
-    private int turns;
-    private Node[] nodes;
+    private int totalTurns;
+    private Node[] allNodes;
 
     // Getters
     public int getNodesCount() {
@@ -17,11 +17,11 @@ public class Map {
     }
 
     public int getTotalTurns() {
-        return turns;
+        return totalTurns;
     }
 
     public Node[] getAllNodes() {
-        return nodes;
+        return allNodes;
     }
 
     // Other Methods
