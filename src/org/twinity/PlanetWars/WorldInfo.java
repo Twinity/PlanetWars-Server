@@ -3,7 +3,7 @@ package org.twinity.PlanetWars;
 /**
  * Created by KaTaNa on 7/31/2016.
  */
-public class ServerInfo {
+public class WorldInfo {
     private Node[] myNodes;
     private Node[] allNodes;
     private Node[] opponentNodes;
@@ -14,7 +14,7 @@ public class ServerInfo {
     private int opponentId;
     private int neutralId;
 
-    public ServerInfo(World inWorld, int inMyId) {
+    public WorldInfo(World inWorld, int inMyId) {
         myNodes = inWorld.getMap().getMyNodes(inMyId);
         allNodes = inWorld.getMap().getAllNodes(inMyId);
         opponentNodes = inWorld.getMap().getOpponentNodes(inMyId);
