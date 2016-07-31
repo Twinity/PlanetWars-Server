@@ -10,7 +10,9 @@ public class ServerInfo {
     private Node[] freeNodes;
     private int totalTurns;
     private int currentTurn;
-    private int remainingTurns;
+    private int myId;
+    private int opponentId;
+    private int neutralId;
 
     public ServerInfo(World inWorld, int inMyId) {
         myNodes = inWorld.getMap().getMyNodes(inMyId);
@@ -19,6 +21,8 @@ public class ServerInfo {
         freeNodes = inWorld.getMap().getFreeNodes();
         totalTurns = inWorld.getMap().getTotalTurns();
         currentTurn = inWorld.getCurrentTurn();
-        remainingTurns = inWorld.getRemainingTurn();
+        myId = inMyId;
+        opponentId = myId == 1 ? 2 : 1;
+        neutralId = 0;
     }
 }
