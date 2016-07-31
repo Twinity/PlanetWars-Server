@@ -8,8 +8,14 @@ import spark.Spark;
 
 public class Server {
 
+    private int _player1Id;
+    private int _player2Id;
+
     public Server() {
         this.setConfigs();
+        this.startRouting();
+        _player1Id = -1;
+        _player2Id = -2;
     }
 
     public void setConfigs() {
@@ -24,6 +30,35 @@ public class Server {
             ServerConfig.getMinThreads(),
             ServerConfig.getTimeout()
         );
+    }
+
+    public void startRouting() {
+        Spark.get("/serverdata", (req, res) -> {
+
+        });
+
+        Spark.get("/getid", (req, res) -> {
+            res.header("Content-type", "application/json");
+
+            if (_player1Id == -1) {
+                _player1Id = (int)Math.round(Math.random() * 1000);
+                res.body("{\"id\":\"" + _player1Id + "\"}");
+
+            } else if (_player2Id == -2) {
+                do {
+                    _player2Id = (int)Math.round(Math.random() * 1000);
+                }
+                while(_player2Id == _player1Id);
+
+                res.body("{\"id\":\"" + _player2Id + "\"}");
+            }
+
+            return res.body();
+        });
+
+        Spark.post("/clientdata", (req, res) -> {
+
+        })
     }
 
 }
