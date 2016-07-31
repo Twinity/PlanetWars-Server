@@ -77,12 +77,18 @@ public class World {
     }
 
     private int getStrengthLevel(int inArmyCount) {
-        if (inArmyCount <= 10)
-            return 0;
-        else if (inArmyCount > 10 && inArmyCount <= 30)
+        int armyCountSum = 0;
+        for (int i = 0; i < getMap().getAllNodes().length; i++) {
+            armyCountSum += getMap().getAllNodes()[i].getArmyCount();
+        }
+        if (inArmyCount <= armyCountSum / 4)
             return 1;
-        else
+        else if (inArmyCount > armyCountSum / 4 && inArmyCount <= armyCountSum / 2)
             return 2;
+        else if (inArmyCount > armyCountSum / 2 && inArmyCount <= 3 * armyCountSum / 4)
+            return 3;
+        else
+            return 4;
     }
 
     public void moveArmy(ArrayList<ArmyMovement> inArmyMovement, int inSource, int inDestination, int inArmyCount) {
