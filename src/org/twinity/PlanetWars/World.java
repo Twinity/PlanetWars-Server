@@ -62,7 +62,16 @@ public class World {
                 getMap().getNode(inArmyMovement.get(i).source).setArmyCount(getMap().getNode(inArmyMovement.get(i).source).getArmyCount()
                         - inArmyMovement.get(i).armyCount);
             } else {
-
+                if (inArmyMovement.get(i).armyCount >= getMap().getNode(inArmyMovement.get(i).destination).getArmyCount()) {
+                    getMap().getNode(inArmyMovement.get(i).destination).setArmyCount((int) Math.ceil(inArmyMovement.get(i).armyCount
+                            - getMap().getNode(inArmyMovement.get(i).destination).getArmyCount() * Math.sqrt(getMap().getNode(inArmyMovement.get(i).destination).getArmyCount()
+                            / inArmyMovement.get(i).armyCount)));
+                    getMap().getNode(inArmyMovement.get(i).destination).setOwner(getMap().getNode(inArmyMovement.get(i).source).getOwner());
+                } else {
+                    getMap().getNode(inArmyMovement.get(i).destination).setArmyCount((int) Math.ceil(getMap().getNode(inArmyMovement.get(i).destination).getArmyCount()
+                            - inArmyMovement.get(i).armyCount * Math.sqrt(inArmyMovement.get(i).armyCount
+                            / getMap().getNode(inArmyMovement.get(i).destination).getArmyCount())));
+                }
             }
         }
     }
