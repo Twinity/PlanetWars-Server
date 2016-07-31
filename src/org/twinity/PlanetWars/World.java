@@ -56,25 +56,25 @@ public class World {
 
     private void updateMap(ArrayList<ArmyMovement> inArmyMovement, int inMyId) {
         for (int i = 0; i < inArmyMovement.size(); i++) {
-            if (getMap().getNode(inArmyMovement.get(i).destination).getOwner() == 0) {
-                getMap().getNode(inArmyMovement.get(i).destination).setArmyCount(inArmyMovement.get(i).armyCount);
-                getMap().getNode(inArmyMovement.get(i).source).setArmyCount(getMap().getNode(inArmyMovement.get(i).source).getArmyCount()
-                        - inArmyMovement.get(i).armyCount);
-            } else if (getMap().getNode(inArmyMovement.get(i).destination).getOwner() == inMyId) {
-                getMap().getNode(inArmyMovement.get(i).destination).setArmyCount(inArmyMovement.get(i).armyCount
-                        + getMap().getNode(inArmyMovement.get(i).destination).getArmyCount());
-                getMap().getNode(inArmyMovement.get(i).source).setArmyCount(getMap().getNode(inArmyMovement.get(i).source).getArmyCount()
-                        - inArmyMovement.get(i).armyCount);
+            if (getMap().getNode(inArmyMovement.get(i).getDestination()).getOwner() == 0) {
+                getMap().getNode(inArmyMovement.get(i).getDestination()).setArmyCount(inArmyMovement.get(i).getArmyCount());
+                getMap().getNode(inArmyMovement.get(i).getSource()).setArmyCount(getMap().getNode(inArmyMovement.get(i).getSource()).getArmyCount()
+                        - inArmyMovement.get(i).getArmyCount());
+            } else if (getMap().getNode(inArmyMovement.get(i).getDestination()).getOwner() == inMyId) {
+                getMap().getNode(inArmyMovement.get(i).getDestination()).setArmyCount(inArmyMovement.get(i).getArmyCount()
+                        + getMap().getNode(inArmyMovement.get(i).getDestination()).getArmyCount());
+                getMap().getNode(inArmyMovement.get(i).getSource()).setArmyCount(getMap().getNode(inArmyMovement.get(i).getSource()).getArmyCount()
+                        - inArmyMovement.get(i).getArmyCount());
             } else {
-                if (inArmyMovement.get(i).armyCount >= getMap().getNode(inArmyMovement.get(i).destination).getArmyCount()) {
-                    getMap().getNode(inArmyMovement.get(i).destination).setArmyCount((int) Math.ceil(inArmyMovement.get(i).armyCount
-                            - getMap().getNode(inArmyMovement.get(i).destination).getArmyCount() * Math.sqrt(getMap().getNode(inArmyMovement.get(i).destination).getArmyCount()
-                            / inArmyMovement.get(i).armyCount)));
-                    getMap().getNode(inArmyMovement.get(i).destination).setOwner(getMap().getNode(inArmyMovement.get(i).source).getOwner());
+                if (inArmyMovement.get(i).getArmyCount() >= getMap().getNode(inArmyMovement.get(i).getDestination()).getArmyCount()) {
+                    getMap().getNode(inArmyMovement.get(i).getDestination()).setArmyCount((int) Math.ceil(inArmyMovement.get(i).getArmyCount()
+                            - getMap().getNode(inArmyMovement.get(i).getDestination()).getArmyCount() * Math.sqrt(getMap().getNode(inArmyMovement.get(i).getDestination()).getArmyCount()
+                            / inArmyMovement.get(i).getArmyCount())));
+                    getMap().getNode(inArmyMovement.get(i).getDestination()).setOwner(getMap().getNode(inArmyMovement.get(i).getSource()).getOwner());
                 } else {
-                    getMap().getNode(inArmyMovement.get(i).destination).setArmyCount((int) Math.ceil(getMap().getNode(inArmyMovement.get(i).destination).getArmyCount()
-                            - inArmyMovement.get(i).armyCount * Math.sqrt(inArmyMovement.get(i).armyCount
-                            / getMap().getNode(inArmyMovement.get(i).destination).getArmyCount())));
+                    getMap().getNode(inArmyMovement.get(i).getDestination()).setArmyCount((int) Math.ceil(getMap().getNode(inArmyMovement.get(i).getDestination()).getArmyCount()
+                            - inArmyMovement.get(i).getArmyCount() * Math.sqrt(inArmyMovement.get(i).getArmyCount()
+                            / getMap().getNode(inArmyMovement.get(i).getDestination()).getArmyCount())));
                 }
             }
         }
@@ -89,7 +89,7 @@ public class World {
         boolean flag = false;
         for (int i = 0; i < inArmyMovement.size(); i++) {
             for (j = 0; j < getMap().getMyNodes(inMyId).length; j++) {
-                if (inArmyMovement.get(i).source == getMap().getMyNodes(inMyId)[j].getId()) {
+                if (inArmyMovement.get(i).getSource() == getMap().getMyNodes(inMyId)[j].getId()) {
                     flag = true;
                     break;
                 }
@@ -99,7 +99,7 @@ public class World {
             else {
                 flag = false;
                 for (int k = 0; k < getMap().getMyNodes(inMyId)[j].getAdjacents().length; k++) {
-                    if (inArmyMovement.get(i).destination == getMap().getMyNodes(inMyId)[j].getAdjacents()[k]) {
+                    if (inArmyMovement.get(i).getDestination() == getMap().getMyNodes(inMyId)[j].getAdjacents()[k]) {
                         flag = true;
                         break;
                     }
@@ -107,10 +107,10 @@ public class World {
                 if (!flag)
                     inArmyMovement.remove(i);
                 else {
-                    if (inArmyMovement.get(i).armyCount < 0)
-                        inArmyMovement.get(i).armyCount = 0;
-                    else if (inArmyMovement.get(i).armyCount > getMap().getMyNodes(inMyId)[j].getArmyCount())
-                        inArmyMovement.get(i).armyCount = getMap().getMyNodes(inMyId)[j].getArmyCount();
+                    if (inArmyMovement.get(i).getArmyCount() < 0)
+                        inArmyMovement.get(i).setArmyCount(0);
+                    else if (inArmyMovement.get(i).getArmyCount() > getMap().getMyNodes(inMyId)[j].getArmyCount())
+                        inArmyMovement.get(i).setArmyCount(getMap().getMyNodes(inMyId)[j].getArmyCount());
                 }
             }
         }
