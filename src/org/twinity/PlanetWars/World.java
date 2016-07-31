@@ -33,6 +33,10 @@ public class World {
         }
     }
 
+    public Map getMap() {
+        return _map;
+    }
+
     private void readMap() {
         try {
             MapReader reader = new MapReader("C:\\Users\\KaTaNa\\IdeaProjects\\PlanetWars\\out\\production\\PlanetWars\\map.json");
@@ -76,27 +80,8 @@ public class World {
         }
     }
 
-    private int getStrengthLevel(int inArmyCount) {
-        int armyCountSum = 0;
-        for (int i = 0; i < getMap().getAllNodes().length; i++) {
-            armyCountSum += getMap().getAllNodes()[i].getArmyCount();
-        }
-        if (inArmyCount <= armyCountSum / 4)
-            return 1;
-        else if (inArmyCount > armyCountSum / 4 && inArmyCount <= armyCountSum / 2)
-            return 2;
-        else if (inArmyCount > armyCountSum / 2 && inArmyCount <= 3 * armyCountSum / 4)
-            return 3;
-        else
-            return 4;
-    }
-
     public void moveArmy(ArrayList<ArmyMovement> inArmyMovement, int inSource, int inDestination, int inArmyCount) {
         inArmyMovement.add(new ArmyMovement(inSource, inDestination, inArmyCount));
-    }
-
-    public Map getMap() {
-        return _map;
     }
 
     private void armyMovementValidator(ArrayList<ArmyMovement> inArmyMovement, int inMyId) {
