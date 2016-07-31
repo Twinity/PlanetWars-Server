@@ -20,8 +20,20 @@ public class Map {
         return totalTurns;
     }
 
-    public Node[] getAllNodes() {
+    private Node[] getAllNodes() {
         return allNodes;
+    }
+
+    public Node[] getAllNodes(int inMyId) {
+        ArrayList<Node> allNodes = new ArrayList<>();
+        for (Node node : this.getAllNodes())
+            if (node.getOwner() != inMyId && node.getOwner() != 0) {
+                node.setArmyCount(getStrengthLevel(node.getArmyCount()));
+                allNodes.add(node);
+            } else
+                allNodes.add(node);
+
+        return allNodes.toArray(new Node[allNodes.size()]);
     }
 
     // Other Methods
@@ -37,8 +49,10 @@ public class Map {
     public Node[] getOpponentNodes(int inMyId) {
         ArrayList<Node> opponentNodes = new ArrayList<>();
         for (Node node : this.getAllNodes())
-            if (node.getOwner() != inMyId && node.getOwner() != 0)
+            if (node.getOwner() != inMyId && node.getOwner() != 0) {
+                node.setArmyCount(getStrengthLevel(node.getArmyCount()));
                 opponentNodes.add(node);
+            }
 
         return opponentNodes.toArray(new Node[opponentNodes.size()]);
     }
@@ -50,6 +64,21 @@ public class Map {
                 freeNodes.add(node);
 
         return freeNodes.toArray(new Node[freeNodes.size()]);
+    }
+
+    private int getStrengthLevel(int inArmyCount) {
+        int armyCountSum = 0;
+        for (int i = 0; i < getAllNodes().length; i++) {
+            armyCountSum += getAllNodes()[i].getArmyCount();
+        }
+        if (inArmyCount <= armyCountSum / 4)
+            return 1;
+        else if (inArmyCount > armyCountSum / 4 && inArmyCount <= armyCountSum / 2)
+            return 2;
+        else if (inArmyCount > armyCountSum / 2 && inArmyCount <= 3 * armyCountSum / 4)
+            return 3;
+        else
+            return 4;
     }
 
     public boolean isMyNode(int inNodeId, int inMyId) {
