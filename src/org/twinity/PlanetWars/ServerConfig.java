@@ -9,9 +9,9 @@ public class ServerConfig {
     private static int _port = 4000;
     private static int _minThreads = 2;
     private static int _maxThreads = 8;
-    private static int _serverTimeout = 5000;
+    private static int _timeout = 5000;
 
-    public static int getServerPort() {
+    public static int getPort() {
         return _port;
     }
 
@@ -23,11 +23,11 @@ public class ServerConfig {
         return _maxThreads;
     }
 
-    public static int getServerTimeout() {
-        return _serverTimeout;
+    public static int getTimeout() {
+        return _timeout;
     }
 
-    public static void setServerPort(int inPort) {
+    public static void setPort(int inPort) {
         if (inPort > 1000 && inPort < 9999)
             _port = inPort;
     }
@@ -42,9 +42,9 @@ public class ServerConfig {
             _maxThreads = inNum;
     }
 
-    public static void setServerTimeout(int inTimeout) {
+    public static void setTimeout(int inTimeout) {
         if (inTimeout > 0 && inTimeout < Integer.MAX_VALUE)
-            _serverTimeout = inTimeout;
+            _timeout = inTimeout;
     }
 
 }
