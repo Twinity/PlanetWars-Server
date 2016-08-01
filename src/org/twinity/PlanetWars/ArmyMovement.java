@@ -16,12 +16,6 @@ public class ArmyMovement {
         this.armyCount = inArmyCount;
     }
 
-    public ArmyMovement() {
-        this.source = 0;
-        this.destination = 0;
-        this.armyCount = 0;
-    }
-
     public int getSource() {
         return this.source;
     }
