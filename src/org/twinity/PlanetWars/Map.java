@@ -11,6 +11,12 @@ public class Map {
     private int totalTurns;
     private Node[] allNodes;
 
+    public void initializer(int inPlayerId1, int inPlayerId2){
+        for (Node node : this.getAllNodes())
+            if (node.getOwner() == inMyId)
+                myNodes.add(node);
+    }
+
     // Getters
     public int getNodesCount() {
         return nodesCount;
@@ -93,6 +99,13 @@ public class Map {
             if (node.getId() == inNodeId)
                 return node;
         return null;
+    }
+
+    public int getOpponentId(int inMyId){
+        for (Node node : this.getAllNodes())
+            if (node.getOwner() != inMyId && node.getOwner() != 0)
+                return node.getOwner();
+        return -1;
     }
 
 }

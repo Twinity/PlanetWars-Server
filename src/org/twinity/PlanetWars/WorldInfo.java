@@ -22,7 +22,7 @@ public class WorldInfo {
         totalTurns = inWorld.getMap().getTotalTurns();
         currentTurn = inWorld.getCurrentTurn();
         myId = inMyId;
-        opponentId = myId == 1 ? 2 : 1;
+        opponentId = inWorld.getMap().getOpponentId(inMyId);
         neutralId = 0;
     }
 }
