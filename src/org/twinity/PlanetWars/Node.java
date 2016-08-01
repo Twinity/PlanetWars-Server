@@ -37,7 +37,7 @@ public class Node {
     }
 
     public void setOwner(int inOwner) throws IllegalArgumentException {
-        if (inOwner >= 0 && inOwner <= 2) {
+        if (inOwner >= 0 && inOwner <= 1000) {
             owner = inOwner;
         } else {
             throw new IllegalArgumentException();
