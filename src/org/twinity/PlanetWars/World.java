@@ -1,7 +1,7 @@
 package org.twinity.PlanetWars;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by KaTaNa on 7/29/2016.
@@ -9,45 +9,24 @@ import java.util.ArrayList;
 public class World {
 
     private Map _map;
-    private int _currentTurn = 1;
-    private int _player1;
-    private int _player2;
-    private ArrayList<ArmyMovement> _armyMovementPlayer1;
-    private ArrayList<ArmyMovement> _armyMovementPlayer2;
+    private float _currentTurn = 1;
 
-    public World() {
-        readMap();
+    public World(Map inMap) {
+        _map = inMap;
+    }
 
-        _armyMovementPlayer1 = new ArrayList<>();
-        _armyMovementPlayer2 = new ArrayList<>();
-        for (int i = 1; i <= _map.getTotalTurns(); i++) {
-            // TODO: send all the information to clients
-            // TODO: receive ArmyMovements of player1
-            // TODO: receive ArmyMovements of player2
-            armyMovementValidator(_armyMovementPlayer1, 1);
-            armyMovementValidator(_armyMovementPlayer2, 2);
-            // TODO: 7/30/2016  map should be updated
-            _armyMovementPlayer1.clear();
-            _armyMovementPlayer2.clear();
-            _currentTurn++;
-        }
+    public void move(ArmyMovement[] inArmyMovement, int inMyId) {
+        armyMovementValidator(new ArrayList<>(Arrays.asList(inArmyMovement)), inMyId);
+        updateMap(new ArrayList<>(Arrays.asList(inArmyMovement)), inMyId);
+        _currentTurn += 0.5;
     }
 
     public Map getMap() {
         return _map;
     }
 
-    private void readMap() {
-        try {
-            MapReader reader = new MapReader("C:\\Users\\KaTaNa\\IdeaProjects\\PlanetWars\\out\\production\\PlanetWars\\map.json");
-            _map = reader.read();
-        } catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
     public int getCurrentTurn() {
-        return _currentTurn;
+        return (int) _currentTurn;
     }
 
     public int getRemainingTurn() {

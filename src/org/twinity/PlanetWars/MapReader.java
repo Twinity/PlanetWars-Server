@@ -21,8 +21,12 @@ public class MapReader {
         _gson = new Gson();
     }
 
-    public Map read() throws FileNotFoundException {
-        _reader = new JsonReader(new FileReader(_path));
+    public Map read() {
+        try {
+            _reader = new JsonReader(new FileReader(_path));
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
         return _gson.fromJson(_reader, Map.class);
     }
 
