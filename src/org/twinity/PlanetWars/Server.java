@@ -14,6 +14,8 @@ public class Server {
     private World _world;
     private static int _connectedPlayers = 0;
     private final int _maxPlayers = 2;
+    private int _player1Turn = 0;
+    private int _player2Turn = 0;
 
     public Server(World inWorld) {
         generateIds();
@@ -47,7 +49,25 @@ public class Server {
 
     public void startRouting() {
         Spark.get("/serverdata", (req, res) -> {
-            WorldInfo worldInfo = new WorldInfo(_world, Integer.parseInt(req.headers("X-Request-ID")));
+            int reqPlayer = Integer.parseInt(req.headers("X-Request-ID"));
+            if (_player1Turn == _player2Turn) {
+                if (reqPlayer == _player1Id)
+                    _player1Turn++;
+                else if (reqPlayer == _player2Id)
+                    _player2Turn++;
+
+            } else if (_player2Turn == _player1Turn + 1) {
+                if (reqPlayer == _player2Id) {
+                    return "wait";
+                }
+                _player1Turn++;
+            } else if (_player1Turn == _player2Turn + 1) {
+                if (reqPlayer == _player1Id) {
+                    return "wait";
+                }
+                _player2Turn++;
+            }
+            WorldInfo worldInfo = new WorldInfo(_world, reqPlayer);
             res.body(new Gson().toJson(worldInfo));
             res.header("Content-type", "application/json");
             return res.body();
