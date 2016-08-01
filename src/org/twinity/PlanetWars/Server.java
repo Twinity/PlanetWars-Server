@@ -38,11 +38,11 @@ public class Server {
         });
 
         Spark.get("/getid", (req, res) -> {
-            res.header("Content-type", "application/json");
+            res.header("Content-type", "text/plain");
 
             if (_player1Id == -1) {
                 _player1Id = (int)Math.round(Math.random() * 1000);
-                res.body("{\"id\":\"" + _player1Id + "\"}");
+                res.body(String.valueOf(_player1Id));
 
             } else if (_player2Id == -2) {
                 do {
@@ -50,7 +50,7 @@ public class Server {
                 }
                 while(_player2Id == _player1Id);
 
-                res.body("{\"id\":\"" + _player2Id + "\"}");
+                res.body(String.valueOf(_player2Id));
             }
 
             return res.body();
