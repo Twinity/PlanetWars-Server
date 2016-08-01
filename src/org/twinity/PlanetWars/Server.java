@@ -4,18 +4,21 @@
 
 package org.twinity.PlanetWars;
 
+import com.google.gson.Gson;
 import spark.Spark;
 
 public class Server {
 
     private int _player1Id;
     private int _player2Id;
+    private World world;
 
     public Server() {
-        this.setConfigs();
-        this.startRouting();
         _player1Id = -1;
         _player2Id = -2;
+        world = new World();
+        this.setConfigs();
+        this.startRouting();
     }
 
     public void setConfigs() {
@@ -34,7 +37,10 @@ public class Server {
 
     public void startRouting() {
         Spark.get("/serverdata", (req, res) -> {
-
+            WorldInfo worldInfo = new WorldInfo(world, Integer.parseInt(req.headers("X-Request-ID")));
+            res.body(new Gson().toJson(worldInfo));
+            res.header("Content-type", "application/json");
+            return res.body();
         });
 
         Spark.get("/getid", (req, res) -> {
