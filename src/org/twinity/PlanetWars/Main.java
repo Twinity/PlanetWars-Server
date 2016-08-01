@@ -6,7 +6,8 @@ package org.twinity.PlanetWars;
 public class Main {
 
     public static void main(String[] args) {
-        World myWorld = new World();
+        MapReader myMap = new MapReader("C:\\Users\\KaTaNa\\IdeaProjects\\PlanetWars\\out\\production\\PlanetWars\\map.json");
+        World myWorld = new World(myMap.read());
     }
 
 }
