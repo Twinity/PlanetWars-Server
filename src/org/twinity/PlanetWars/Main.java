@@ -6,7 +6,7 @@ package org.twinity.PlanetWars;
 public class Main {
 
     public static void main(String[] args) {
-        World myWorld = new World();
+        Server server = new Server();
     }
 
 }
