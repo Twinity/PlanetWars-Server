@@ -63,8 +63,10 @@ public class Server {
         });
 
         Spark.post("/clientdata", (req, res) -> {
-
-        })
+            ArmyMovement[] clientArmyMovement = new Gson().fromJson(req.body(), ArmyMovement[].class);
+            int playerId = Integer.parseInt(req.headers("X-Request-ID"));
+            
+        });
     }
 
 }
