@@ -11,12 +11,12 @@ public class Server {
 
     private int _player1Id;
     private int _player2Id;
-    private World world;
-
-    public Server() {
+    private World _world;
+    
+    public Server(World inWorld) {
         _player1Id = -1;
         _player2Id = -2;
-        world = new World();
+        _world = inWorld;
         this.setConfigs();
         this.startRouting();
     }
@@ -37,7 +37,7 @@ public class Server {
 
     public void startRouting() {
         Spark.get("/serverdata", (req, res) -> {
-            WorldInfo worldInfo = new WorldInfo(world, Integer.parseInt(req.headers("X-Request-ID")));
+            WorldInfo worldInfo = new WorldInfo(_world, Integer.parseInt(req.headers("X-Request-ID")));
             res.body(new Gson().toJson(worldInfo));
             res.header("Content-type", "application/json");
             return res.body();
@@ -65,7 +65,7 @@ public class Server {
         Spark.post("/clientdata", (req, res) -> {
             ArmyMovement[] clientArmyMovement = new Gson().fromJson(req.body(), ArmyMovement[].class);
             int playerId = Integer.parseInt(req.headers("X-Request-ID"));
-            world.moveArmy(clientArmyMovement, playerId);
+            _world.moveArmy(clientArmyMovement, playerId);
             res.body("OK");
             return res.body();
         });
