@@ -12,11 +12,13 @@ public class Server {
     private int _player1Id;
     private int _player2Id;
     private World _world;
-    
+    private static int _connectedPlayers = 0;
+    private final int _maxPlayers = 2;
+
     public Server(World inWorld) {
-        _player1Id = -1;
-        _player2Id = -2;
+        generateIds();
         _world = inWorld;
+        _world.getMap().initializer(_player1Id, _player2Id);
         this.setConfigs();
         this.startRouting();
     }
@@ -35,6 +37,14 @@ public class Server {
         );
     }
 
+    public void generateIds() {
+        _player1Id = (int)Math.round(Math.random() * 999) + 1;
+        do {
+            _player2Id = (int)Math.round(Math.random() * 999) + 1;
+        }
+        while(_player2Id == _player1Id);
+    }
+
     public void startRouting() {
         Spark.get("/serverdata", (req, res) -> {
             WorldInfo worldInfo = new WorldInfo(_world, Integer.parseInt(req.headers("X-Request-ID")));
@@ -46,17 +56,16 @@ public class Server {
         Spark.get("/getid", (req, res) -> {
             res.header("Content-type", "text/plain");
 
-            if (_player1Id == -1) {
-                _player1Id = (int)Math.round(Math.random() * 999) + 1;
-                res.body(String.valueOf(_player1Id));
-
-            } else if (_player2Id == -2) {
-                do {
-                    _player2Id = (int)Math.round(Math.random() * 999) + 1;
+            if (_connectedPlayers < _maxPlayers) {
+                if (_connectedPlayers == 0) {
+                    _connectedPlayers++;
+                    res.body(String.valueOf(_player1Id));
+                } else if (_connectedPlayers == 1) {
+                    _connectedPlayers++;
+                    res.body(String.valueOf(_player2Id));
                 }
-                while(_player2Id == _player1Id);
-
-                res.body(String.valueOf(_player2Id));
+            } else {
+                res.body("null");
             }
 
             return res.body();
