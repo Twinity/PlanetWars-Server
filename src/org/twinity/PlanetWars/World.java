@@ -15,7 +15,7 @@ public class World {
         _map = inMap;
     }
 
-    public void move(ArmyMovement[] inArmyMovement, int inMyId) {
+    public void moveArmy(ArmyMovement[] inArmyMovement, int inMyId) {
         armyMovementValidator(new ArrayList<>(Arrays.asList(inArmyMovement)), inMyId);
         updateMap(new ArrayList<>(Arrays.asList(inArmyMovement)), inMyId);
         _currentTurn += 0.5;
@@ -57,10 +57,6 @@ public class World {
                 }
             }
         }
-    }
-
-    public void moveArmy(ArrayList<ArmyMovement> inArmyMovement, int inSource, int inDestination, int inArmyCount) {
-        inArmyMovement.add(new ArmyMovement(inSource, inDestination, inArmyCount));
     }
 
     private void armyMovementValidator(ArrayList<ArmyMovement> inArmyMovement, int inMyId) {
