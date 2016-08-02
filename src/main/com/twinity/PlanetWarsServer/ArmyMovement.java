@@ -1,8 +1,8 @@
-package org.twinity.PlanetWars;
-
 /**
  * Created by KaTaNa on 7/30/2016.
  */
+
+package com.twinity.PlanetWarsServer;
 
 public class ArmyMovement {
 

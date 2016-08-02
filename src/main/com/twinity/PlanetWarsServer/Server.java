@@ -2,7 +2,7 @@
  * Created by Borderliner on 8/1/2016.
  */
 
-package org.twinity.PlanetWars;
+package com.twinity.PlanetWarsServer;
 
 import com.google.gson.Gson;
 import spark.Spark;

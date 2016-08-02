@@ -1,11 +1,12 @@
-package org.twinity.PlanetWars;
+/**
+ * Created by KaTaNa on 7/29/2016.
+ */
+
+package com.twinity.PlanetWarsServer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * Created by KaTaNa on 7/29/2016.
- */
 public class World {
 
     private Map _map;

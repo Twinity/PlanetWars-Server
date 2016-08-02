@@ -1,8 +1,9 @@
-package org.twinity.PlanetWars;
-
 /**
  * Created by KaTaNa on 7/31/2016.
  */
+
+package com.twinity.PlanetWarsServer;
+
 public class WorldInfo {
     private Node[] myNodes;
     private Node[] allNodes;

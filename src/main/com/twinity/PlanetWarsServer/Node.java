@@ -1,8 +1,9 @@
-package org.twinity.PlanetWars;
-
 /**
- * a NODE is a vertex in a graph
+ * Created by KaTaNa on 7/29/2016.
  */
+
+package com.twinity.PlanetWarsServer;
+
 public class Node {
 
     private int id;

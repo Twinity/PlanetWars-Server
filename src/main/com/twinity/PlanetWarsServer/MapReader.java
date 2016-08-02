@@ -1,14 +1,14 @@
-package org.twinity.PlanetWars;
+/**
+ * Created by KaTaNa on 7/29/2016.
+ */
+
+package com.twinity.PlanetWarsServer;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-
-/**
- * Created by KaTaNa on 7/29/2016.
- */
 
 public class MapReader {
 

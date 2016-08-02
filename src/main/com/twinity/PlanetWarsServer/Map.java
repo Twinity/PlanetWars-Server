@@ -1,10 +1,11 @@
-package org.twinity.PlanetWars;
-
-import java.util.ArrayList;
-
 /**
  * Created by KaTaNa on 7/29/2016.
  */
+
+package com.twinity.PlanetWarsServer;
+
+import java.util.ArrayList;
+
 public class Map {
 
     private int nodesCount;
