@@ -30,7 +30,7 @@ public class World {
         return (int) _currentTurn;
     }
 
-    public int getRemainingTurn() {
+    public int getRemainingTurns() {
         return getMap().getTotalTurns() - getCurrentTurn();
     }
 
