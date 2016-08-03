@@ -17,8 +17,8 @@ public class World {
     }
 
     public void moveArmy(ArmyMovement[] inArmyMovement, int inMyId) {
-        armyMovementValidator(inArmyMovement, inMyId);
-        updateMap(new ArrayList<>(Arrays.asList(inArmyMovement)), inMyId);
+        ArmyMovement[] validArmyMovement = armyMovementValidator(inArmyMovement, inMyId);
+        updateMap(validArmyMovement, inMyId);
         _currentTurn += 0.5;
     }
 
@@ -34,27 +34,27 @@ public class World {
         return getMap().getTotalTurns() - getCurrentTurn();
     }
 
-    private void updateMap(ArrayList<ArmyMovement> inArmyMovement, int inMyId) {
-        for (int i = 0; i < inArmyMovement.size(); i++) {
-            if (getMap().getNode(inArmyMovement.get(i).getDestination()).getOwner() == 0) {
-                getMap().getNode(inArmyMovement.get(i).getDestination()).setArmyCount(inArmyMovement.get(i).getArmyCount());
-                getMap().getNode(inArmyMovement.get(i).getSource()).setArmyCount(getMap().getNode(inArmyMovement.get(i).getSource()).getArmyCount()
-                        - inArmyMovement.get(i).getArmyCount());
-            } else if (getMap().getNode(inArmyMovement.get(i).getDestination()).getOwner() == inMyId) {
-                getMap().getNode(inArmyMovement.get(i).getDestination()).setArmyCount(inArmyMovement.get(i).getArmyCount()
-                        + getMap().getNode(inArmyMovement.get(i).getDestination()).getArmyCount());
-                getMap().getNode(inArmyMovement.get(i).getSource()).setArmyCount(getMap().getNode(inArmyMovement.get(i).getSource()).getArmyCount()
-                        - inArmyMovement.get(i).getArmyCount());
+    private void updateMap(ArmyMovement[] inArmyMovement, int inMyId) {
+        for (int i = 0; i < inArmyMovement.length; i++) {
+            if (getMap().getNode(inArmyMovement[i].getDestination()).getOwner() == 0) {
+                getMap().getNode(inArmyMovement[i].getDestination()).setArmyCount(inArmyMovement[i].getArmyCount());
+                getMap().getNode(inArmyMovement[i].getSource()).setArmyCount(getMap().getNode(inArmyMovement[i].getSource()).getArmyCount()
+                        - inArmyMovement[i].getArmyCount());
+            } else if (getMap().getNode(inArmyMovement[i].getDestination()).getOwner() == inMyId) {
+                getMap().getNode(inArmyMovement[i].getDestination()).setArmyCount(inArmyMovement[i].getArmyCount()
+                        + getMap().getNode(inArmyMovement[i].getDestination()).getArmyCount());
+                getMap().getNode(inArmyMovement[i].getSource()).setArmyCount(getMap().getNode(inArmyMovement[i].getSource()).getArmyCount()
+                        - inArmyMovement[i].getArmyCount());
             } else {
-                if (inArmyMovement.get(i).getArmyCount() >= getMap().getNode(inArmyMovement.get(i).getDestination()).getArmyCount()) {
-                    getMap().getNode(inArmyMovement.get(i).getDestination()).setArmyCount((int) Math.ceil(inArmyMovement.get(i).getArmyCount()
-                            - getMap().getNode(inArmyMovement.get(i).getDestination()).getArmyCount() * Math.sqrt(getMap().getNode(inArmyMovement.get(i).getDestination()).getArmyCount()
-                            / inArmyMovement.get(i).getArmyCount())));
-                    getMap().getNode(inArmyMovement.get(i).getDestination()).setOwner(getMap().getNode(inArmyMovement.get(i).getSource()).getOwner());
+                if (inArmyMovement[i].getArmyCount() >= getMap().getNode(inArmyMovement[i].getDestination()).getArmyCount()) {
+                    getMap().getNode(inArmyMovement[i].getDestination()).setArmyCount((int) Math.ceil(inArmyMovement[i].getArmyCount()
+                            - getMap().getNode(inArmyMovement[i].getDestination()).getArmyCount() * Math.sqrt(getMap().getNode(inArmyMovement[i].getDestination()).getArmyCount()
+                            / inArmyMovement[i].getArmyCount())));
+                    getMap().getNode(inArmyMovement[i].getDestination()).setOwner(getMap().getNode(inArmyMovement[i].getSource()).getOwner());
                 } else {
-                    getMap().getNode(inArmyMovement.get(i).getDestination()).setArmyCount((int) Math.ceil(getMap().getNode(inArmyMovement.get(i).getDestination()).getArmyCount()
-                            - inArmyMovement.get(i).getArmyCount() * Math.sqrt(inArmyMovement.get(i).getArmyCount()
-                            / getMap().getNode(inArmyMovement.get(i).getDestination()).getArmyCount())));
+                    getMap().getNode(inArmyMovement[i].getDestination()).setArmyCount((int) Math.ceil(getMap().getNode(inArmyMovement[i].getDestination()).getArmyCount()
+                            - inArmyMovement[i].getArmyCount() * Math.sqrt(inArmyMovement[i].getArmyCount()
+                            / getMap().getNode(inArmyMovement[i].getDestination()).getArmyCount())));
                 }
             }
         }
