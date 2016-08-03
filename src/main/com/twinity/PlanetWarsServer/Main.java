@@ -1,11 +1,17 @@
 /**
- * Created by KaTaNa on 7/29/2016.
+ * @author    Amir hossein Hajianpour <ahhajianpour1@gmail.com>
+ * @version   1.2
+ * @since     1.0
  */
 
 package com.twinity.PlanetWarsServer;
 
 public class Main {
 
+    /**
+     * main function which is the starting point of the app
+     * @param args TODO: Should contain path to the map file
+     */
     public static void main(String[] args) {
         // Reads map from MapReader object
         // TODO: A dynamic map name should be passed from args[]
