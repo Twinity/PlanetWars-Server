@@ -155,14 +155,30 @@ public class Map {
         float firstQuarter = (minArmyCount + armyCountAverage) / 2;
         float thirdQuarter = (maxArmyCount + armyCountAverage) / 2;
 
-        if (inArmyCount <= firstQuarter)
-            return 1;
-        else if (inArmyCount > firstQuarter && inArmyCount <= armyCountAverage)
-            return 2;
-        else if (inArmyCount > armyCountAverage && inArmyCount <= thirdQuarter)
-            return 3;
-        else
+        if (inArmyCount > nearestNeighbour(getAllNodes(), thirdQuarter))
             return 4;
+        else if (inArmyCount >= nearestNeighbour(getAllNodes(), armyCountAverage))
+            return 3;
+        else if (inArmyCount >= nearestNeighbour(getAllNodes(), firstQuarter))
+            return 2;
+        else
+            return 1;
+    }
+
+    private int nearestNeighbour(Node[] inNode, float inAverage) {
+        int small = 0, big = 1000;
+        for (Node node : inNode) {
+            if (node.getOwner() != 0) {
+                if (small < node.getArmyCount() && inAverage > node.getArmyCount())
+                    small = node.getArmyCount();
+                if (big < node.getArmyCount() && inAverage < node.getArmyCount())
+                    big = node.getArmyCount();
+            }
+        }
+        if (inAverage - small < big - inAverage)
+            return small;
+        else
+            return big;
     }
 
     /**
