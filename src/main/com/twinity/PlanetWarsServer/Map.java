@@ -139,7 +139,6 @@ public class Map {
      * @param inArmyCount An int of army counts to be converted
      * @return Returns an int between 1 and 4, 1 being very weak, and 4 being very powerful.
      */
-    //FIXME: Bad idea to set strength as a proportion of total army count of all nodes.
     private int getStrengthLevel(int inArmyCount) {
         int armyCountSum = 0, minArmyCount = 1000, maxArmyCount = 0;
         for (int i = 0; i < getAllNodes().length; i++) {
