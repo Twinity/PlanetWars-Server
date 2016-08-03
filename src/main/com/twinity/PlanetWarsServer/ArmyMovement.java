@@ -44,7 +44,7 @@ public class ArmyMovement {
 
     /**
      * Gets node's army count
-     * @return
+     * @return Returns an int showing the army count of this object.
      */
     public int getArmyCount() {
         return this.armyCount;
