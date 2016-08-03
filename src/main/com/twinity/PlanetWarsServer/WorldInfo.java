@@ -33,7 +33,7 @@ public class WorldInfo {
      */
     public WorldInfo populate(World inWorld, int inMyId) {
         myNodes = inWorld.getMap().getMyNodes(inMyId);
-        allNodes = inWorld.getMap().getAllNodes(inMyId);
+        allNodes = inWorld.getMap().getFilteredAllNodes(inMyId);
         opponentNodes = inWorld.getMap().getOpponentNodes(inMyId);
         freeNodes = inWorld.getMap().getFreeNodes();
         totalTurns = inWorld.getMap().getTotalTurns();
