@@ -15,7 +15,11 @@ public class WorldInfo {
     private int opponentId;
     private int neutralId;
 
-    public WorldInfo(World inWorld, int inMyId) {
+    public WorldInfo WorldInfo() {
+        return this;
+    }
+
+    public WorldInfo populate(World inWorld, int inMyId) {
         myNodes = inWorld.getMap().getMyNodes(inMyId);
         allNodes = inWorld.getMap().getAllNodes(inMyId);
         opponentNodes = inWorld.getMap().getOpponentNodes(inMyId);
@@ -25,5 +29,6 @@ public class WorldInfo {
         myId = inMyId;
         opponentId = inWorld.getMap().getOpponentId(inMyId);
         neutralId = 0;
+        return this;
     }
 }
