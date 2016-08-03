@@ -26,7 +26,7 @@ public class WorldInfo {
     }
 
     /**
-     * Populates WorldInfo with the data collected from World->Map
+     * Populates WorldInfo with the data collected from World.Map
      * @param inWorld Receives an instance of World
      * @param inMyId Receives requested player's ID to customize data accordingly
      * @return Returns an instance of WorldInfo to be sent to the client
