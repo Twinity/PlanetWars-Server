@@ -8,6 +8,7 @@
 package com.twinity.PlanetWarsServer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Map {
 
@@ -140,45 +141,66 @@ public class Map {
      * @return Returns an int between 1 and 4, 1 being very weak, and 4 being very powerful.
      */
     private int getStrengthLevel(int inArmyCount) {
-        int armyCountSum = 0, minArmyCount = 1000, maxArmyCount = 0;
-        for (int i = 0; i < getAllNodes().length; i++) {
-            if (getAllNodes()[i].getOwner() != 0) {
-                armyCountSum += getAllNodes()[i].getArmyCount();
-                if (minArmyCount > getAllNodes()[i].getArmyCount())
-                    minArmyCount = getAllNodes()[i].getArmyCount();
-                if (maxArmyCount < getAllNodes()[i].getArmyCount())
-                    maxArmyCount = getAllNodes()[i].getArmyCount();
-            }
-        }
+        Node[] sortedNodes = new Node[getAllNodes().length - getFreeNodes().length];
 
-        float armyCountAverage = armyCountSum / (getAllNodes().length - getFreeNodes().length);
-        float firstQuarter = (minArmyCount + armyCountAverage) / 2;
-        float thirdQuarter = (maxArmyCount + armyCountAverage) / 2;
+        // Filling SortedNodes array
+        for (int i = 0; i < getAllNodes().length; i++)
+            if (getAllNodes()[i].getOwner() != 0)
+                sortedNodes[i] = getAllNodes()[i];
 
-        if (inArmyCount > nearestNeighbour(getAllNodes(), thirdQuarter))
-            return 4;
-        else if (inArmyCount >= nearestNeighbour(getAllNodes(), armyCountAverage))
-            return 3;
-        else if (inArmyCount >= nearestNeighbour(getAllNodes(), firstQuarter))
-            return 2;
-        else
+        // Sorting sortedNodes array in increasing order
+        Node temp;
+        for (int i = 0; i < sortedNodes.length; i++)
+            for (int j = 0; j < sortedNodes.length - i - 1; j++)
+                if (sortedNodes[j].getArmyCount() > sortedNodes[j + 1].getArmyCount()) {
+                    temp = sortedNodes[j + 1];
+                    sortedNodes[j + 1] = sortedNodes[j];
+                    sortedNodes[j] = temp;
+                }
+
+        // Subtracting sortedNodes array's members
+        int[] differences = new int[sortedNodes.length - 1];
+        for (int i = 0; i < sortedNodes.length; i++)
+            differences[i] = sortedNodes[i + 1].getArmyCount() - sortedNodes[i].getArmyCount();
+
+        // Finding top 3 biggest numbers of differences array
+        int[] topThreeIndex = new int[3];
+        Arrays.fill(topThreeIndex, -1);
+        for (int i = 0; i < differences.length; i++)
+            insertBiggerIndex(differences, topThreeIndex, i);
+
+        // Sorting topThreeIndex array in increasing order
+        int temp2;
+        for (int i = 0; i < topThreeIndex.length; i++)
+            for (int j = 0; j < topThreeIndex.length - i - 1; j++)
+                if (differences[topThreeIndex[j]] > differences[topThreeIndex[j + 1]]) {
+                    temp2 = topThreeIndex[j + 1];
+                    topThreeIndex[j + 1] = topThreeIndex[j];
+                    topThreeIndex[j] = temp2;
+                }
+
+        if (inArmyCount <= differences[topThreeIndex[0]])
             return 1;
+        else if (inArmyCount <= differences[topThreeIndex[1]])
+            return 2;
+        else if (inArmyCount <= differences[topThreeIndex[2]])
+            return 3;
+        else
+            return 4;
     }
 
-    private int nearestNeighbour(Node[] inNode, float inAverage) {
-        int small = 0, big = 1000;
-        for (Node node : inNode) {
-            if (node.getOwner() != 0) {
-                if (small < node.getArmyCount() && inAverage > node.getArmyCount())
-                    small = node.getArmyCount();
-                if (big < node.getArmyCount() && inAverage < node.getArmyCount())
-                    big = node.getArmyCount();
+    private void insertBiggerIndex(int[] inArray, int[] inTopIndexHolder, int inIndex) {
+        for (int i = 0; i < inTopIndexHolder.length; i++)
+            if (inTopIndexHolder[i] == -1)
+                inTopIndexHolder[i] = inIndex;
+        int tempIndexHolder = -1;
+        int biggest = Integer.MAX_VALUE;
+        for (int i = 0; i < inTopIndexHolder.length; i++)
+            if (biggest >= inArray[inTopIndexHolder[i]]) {
+                biggest = inArray[inTopIndexHolder[i]];
+                tempIndexHolder = i;
             }
-        }
-        if (inAverage - small < big - inAverage)
-            return small;
-        else
-            return big;
+        inTopIndexHolder[tempIndexHolder] = inIndex;
     }
 
     /**
