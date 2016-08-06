@@ -144,13 +144,13 @@ public class Map {
         Node[] sortedNodes = new Node[getAllNodes().length - getFreeNodes().length];
 
         // Filling SortedNodes array
-        for (int i = 0; i < getAllNodes().length; i++)
+        for (int i = 0, j = 0; i < getAllNodes().length; i++)
             if (getAllNodes()[i].getOwner() != 0)
-                sortedNodes[i] = getAllNodes()[i];
+                sortedNodes[j++] = getAllNodes()[i];
 
         // Sorting sortedNodes array in increasing order
         Node temp;
-        for (int i = 0; i < sortedNodes.length; i++)
+        for (int i = 0; i < sortedNodes.length - 1; i++)
             for (int j = 0; j < sortedNodes.length - i - 1; j++)
                 if (sortedNodes[j].getArmyCount() > sortedNodes[j + 1].getArmyCount()) {
                     temp = sortedNodes[j + 1];
@@ -166,12 +166,13 @@ public class Map {
         // Finding top 3 biggest numbers of differences array
         int[] topThreeIndex = new int[3];
         Arrays.fill(topThreeIndex, -1);
-        for (int i = 0; i < differences.length; i++)
-            insertBiggerIndex(differences, topThreeIndex, i);
+        for (int i = 0, j = 0; i < differences.length; i++)
+            if (insertBiggerIndex(differences, topThreeIndex, i) != -1)
+                topThreeIndex[j++] = insertBiggerIndex(differences, topThreeIndex, i);
 
         // Sorting topThreeIndex array in increasing order
         int temp2;
-        for (int i = 0; i < topThreeIndex.length; i++)
+        for (int i = 0; i < topThreeIndex.length - 1; i++)
             for (int j = 0; j < topThreeIndex.length - i - 1; j++)
                 if (differences[topThreeIndex[j]] > differences[topThreeIndex[j + 1]]) {
                     temp2 = topThreeIndex[j + 1];
@@ -189,18 +190,19 @@ public class Map {
             return 4;
     }
 
-    private void insertBiggerIndex(int[] inArray, int[] inTopIndexHolder, int inIndex) {
+    private int insertBiggerIndex(int[] inArray, int[] inTopIndexHolder, int inIndex) {
         for (int i = 0; i < inTopIndexHolder.length; i++)
             if (inTopIndexHolder[i] == -1)
-                inTopIndexHolder[i] = inIndex;
-        int tempIndexHolder = -1;
+                return inIndex;
+
         int biggest = Integer.MAX_VALUE;
         for (int i = 0; i < inTopIndexHolder.length; i++)
-            if (biggest >= inArray[inTopIndexHolder[i]]) {
+            if (biggest >= inArray[inTopIndexHolder[i]])
                 biggest = inArray[inTopIndexHolder[i]];
-                tempIndexHolder = i;
-            }
-        inTopIndexHolder[tempIndexHolder] = inIndex;
+
+        if (inArray[inIndex] > biggest)
+            return inIndex;
+        return -1;
     }
 
     /**
