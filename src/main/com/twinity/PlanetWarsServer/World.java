@@ -69,25 +69,35 @@ public class World {
     // TODO: Should separate game's rules from updating the map.
     private void updateMap(ArmyMovement[] inArmyMovement, int inMyId) {
         for (int i = 0; i < inArmyMovement.length; i++) {
-            if (getMap().getNode(inArmyMovement[i].getDestination()).getOwner() == 0) {
-                getMap().getNode(inArmyMovement[i].getDestination()).setArmyCount(inArmyMovement[i].getArmyCount());
-                getMap().getNode(inArmyMovement[i].getSource()).setArmyCount(getMap().getNode(inArmyMovement[i].getSource()).getArmyCount()
-                        - inArmyMovement[i].getArmyCount());
-            } else if (getMap().getNode(inArmyMovement[i].getDestination()).getOwner() == inMyId) {
-                getMap().getNode(inArmyMovement[i].getDestination()).setArmyCount(inArmyMovement[i].getArmyCount()
-                        + getMap().getNode(inArmyMovement[i].getDestination()).getArmyCount());
-                getMap().getNode(inArmyMovement[i].getSource()).setArmyCount(getMap().getNode(inArmyMovement[i].getSource()).getArmyCount()
-                        - inArmyMovement[i].getArmyCount());
-            } else {
-                if (inArmyMovement[i].getArmyCount() >= getMap().getNode(inArmyMovement[i].getDestination()).getArmyCount()) {
-                    getMap().getNode(inArmyMovement[i].getDestination()).setArmyCount((int) Math.ceil(inArmyMovement[i].getArmyCount()
-                            - getMap().getNode(inArmyMovement[i].getDestination()).getArmyCount() * Math.sqrt(getMap().getNode(inArmyMovement[i].getDestination()).getArmyCount()
-                            / inArmyMovement[i].getArmyCount())));
-                    getMap().getNode(inArmyMovement[i].getDestination()).setOwner(getMap().getNode(inArmyMovement[i].getSource()).getOwner());
+            // Source node of the issued command
+            Node src = getMap().getNode(inArmyMovement[i].getSource());
+            // Destination node of the issued command
+            Node dest = getMap().getNode(inArmyMovement[i].getDestination());
+            // Amount of the soldiers issued to move
+            int ac = inArmyMovement[i].getArmyCount();
+
+            // If the movement's destination is a neutral node
+            if (dest.getOwner() == 0) {
+                // Set destination's army count to the movement's army count (NO WARS)
+                dest.setArmyCount(ac);
+                // Reduce the amount of issued army moved from source node
+                src.setArmyCount(src.getArmyCount() - ac);
+            }
+            // If the destination node was mine
+            else if (dest.getOwner() == inMyId) {
+                // Add the amount of issued army count to the destination node (NO WARS)
+                dest.setArmyCount(ac + dest.getArmyCount());
+                // Reduce the amount of issued army count from source
+                src.setArmyCount(src.getArmyCount() - ac);
+            }
+            // If the destination node was enemies, [WAR HAPPENS]
+            else {
+                // If issued army count is bigger than destination (enemy)'s army count
+                if (ac >= dest.getArmyCount()) {
+                    dest.setArmyCount((int) Math.ceil(ac - dest.getArmyCount() * Math.sqrt(dest.getArmyCount() / ac)));
+                    dest.setOwner(src.getOwner());
                 } else {
-                    getMap().getNode(inArmyMovement[i].getDestination()).setArmyCount((int) Math.ceil(getMap().getNode(inArmyMovement[i].getDestination()).getArmyCount()
-                            - inArmyMovement[i].getArmyCount() * Math.sqrt(inArmyMovement[i].getArmyCount()
-                            / getMap().getNode(inArmyMovement[i].getDestination()).getArmyCount())));
+                    dest.setArmyCount((int) Math.ceil(dest.getArmyCount() - ac * Math.sqrt(ac / dest.getArmyCount())));
                 }
             }
         }
