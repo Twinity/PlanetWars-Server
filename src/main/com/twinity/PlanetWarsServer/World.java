@@ -94,9 +94,17 @@ public class World {
             else {
                 // If issued army count is bigger than destination (enemy)'s army count
                 if (ac >= dest.getArmyCount()) {
+                    /**
+                      * Kill enemy units relative to my army strength strength
+                      * Me - (Enemy * sqrt(Enemy / Me))
+                      */
                     dest.setArmyCount((int) Math.ceil(ac - dest.getArmyCount() * Math.sqrt(dest.getArmyCount() / ac)));
+                    // Set player as new owner
                     dest.setOwner(src.getOwner());
-                } else {
+                }
+                // If enemy's strength is superior
+                else {
+                    // Same strategy, but the player loses this time
                     dest.setArmyCount((int) Math.ceil(dest.getArmyCount() - ac * Math.sqrt(ac / dest.getArmyCount())));
                 }
             }
