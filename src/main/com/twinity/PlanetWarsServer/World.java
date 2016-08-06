@@ -1,8 +1,8 @@
 /**
  * @author    Amir hossein Hajianpour <ahhajianpour1@gmail.com>
  * @author    Mohammad reza Hajianpour <hajianpour.mr@gmail.com>
- * @version   1.2
- * @since     1.0
+ * @version   0.3.1
+ * @since     0.1.0
  */
 
 package com.twinity.PlanetWarsServer;
@@ -19,6 +19,7 @@ public class World {
 
     /**
      * World Constructor
+     *
      * @param inMap Receives and saves a Map inside itself.
      */
     public World(Map inMap) {
@@ -27,8 +28,9 @@ public class World {
 
     /**
      * Applies the input ArmyMovement array and updates the map accordingly.
+     *
      * @param inArmyMovement An ArmyMovement array to update the map with.
-     * @param inMyId An int which is the owner of the ArmyMovement array
+     * @param inMyId         An int which is the owner of the ArmyMovement array
      */
     public void moveArmy(ArmyMovement[] inArmyMovement, int inMyId) {
         ArmyMovement[] validArmyMovement = armyMovementValidator(inArmyMovement, inMyId);
@@ -39,6 +41,7 @@ public class World {
 
     /**
      * Gets the map object residing in the World class
+     *
      * @return Returns a map object
      */
     public Map getMap() {
@@ -47,6 +50,7 @@ public class World {
 
     /**
      * Gets the current turn
+     *
      * @return Returns an int indicating the current turn
      */
     public int getCurrentTurn() {
@@ -55,6 +59,7 @@ public class World {
 
     /**
      * Gets the remaining turns of the game
+     *
      * @return Returns an int indicating the remaining turns of the game.
      */
     public int getRemainingTurns() {
@@ -63,8 +68,9 @@ public class World {
 
     /**
      * Updates the map with a valid ArmyMovement
+     *
      * @param inArmyMovement An ArmyMovement array to update the map with.
-     * @param inMyId An int which is the current player's ID.
+     * @param inMyId         An int which is the current player's ID.
      */
     // TODO: Should separate game's rules from updating the map.
     private void updateMap(ArmyMovement[] inArmyMovement, int inMyId) {
@@ -94,27 +100,32 @@ public class World {
             else {
                 // If issued army count is bigger than destination (enemy)'s army count
                 if (ac >= dest.getArmyCount()) {
-                    /**
-                      * Kill enemy units relative to my army strength strength
-                      * Me - (Enemy * sqrt(Enemy / Me))
-                      */
-                    dest.setArmyCount((int) Math.ceil(ac - dest.getArmyCount() * Math.sqrt(dest.getArmyCount() / ac)));
+                    dest.setArmyCount(casualtyCalculator(ac, dest.getArmyCount()));
                     // Set player as new owner
                     dest.setOwner(src.getOwner());
                 }
                 // If enemy's strength is superior
                 else {
                     // Same strategy, but the player loses this time
-                    dest.setArmyCount((int) Math.ceil(dest.getArmyCount() - ac * Math.sqrt(ac / dest.getArmyCount())));
+                    dest.setArmyCount(casualtyCalculator(dest.getArmyCount(), ac));
                 }
             }
         }
     }
 
     /**
+     * Kill enemy units relative to my army strength strength
+     * Me - (Enemy * sqrt(Enemy / Me))
+     */
+    private int casualtyCalculator(int inWinner, int inLoser) {
+        return (int) Math.ceil(inWinner - inLoser * Math.sqrt(inLoser / inWinner));
+    }
+
+    /**
      * Validates ArmyMovement array and checks if the movements are sensible.
+     *
      * @param inArmyMovement An ArmyMovement array to be validated.
-     * @param inMyId An int which is the current player's ID.
+     * @param inMyId         An int which is the current player's ID.
      * @return Returns an array of ArmyMovement with valid movements.
      */
     private ArmyMovement[] armyMovementValidator(ArmyMovement[] inArmyMovement, int inMyId) {
@@ -133,7 +144,7 @@ public class World {
             // If the movement is not valid, pop it out of the array
             if (!valid)
                 amArray.remove(movement);
-            // If the first phase (Source validation) is passed
+                // If the first phase (Source validation) is passed
             else {
                 valid = false;
                 /**
@@ -153,13 +164,13 @@ public class World {
                 /**
                  * Check if the ArmyMovement has currect values for army count.
                  * Correct them if needed.
-                  */
+                 */
 
                 else {
                     // If the army count in ArmyMovement is below zero, set it to zero
                     if (movement.getArmyCount() < 0)
                         movement.setArmyCount(0);
-                    // If the player is moving more army than he has, set it to the maximum he has.
+                        // If the player is moving more army than he has, set it to the maximum he has.
                     else if (movement.getArmyCount() > getMap().getNode(movement.getSource()).getArmyCount())
                         movement.setArmyCount(getMap().getNode(movement.getSource()).getArmyCount());
                 }

@@ -1,8 +1,8 @@
 /**
  * @author Amir hossein Hajianpour <ahhajianpour1@gmail.com>
  * @author Mohammad reza Hajianpour <hajianpour.mr@gmail.com>
- * @version 1.2
- * @since 1.0
+ * @version 0.3.1
+ * @since 0.1.0
  */
 
 package com.twinity.PlanetWarsServer;
@@ -141,66 +141,75 @@ public class Map {
      * @return Returns an int between 1 and 4, 1 being very weak, and 4 being very powerful.
      */
     private int getStrengthLevel(int inArmyCount) {
-        Node[] sortedNodes = new Node[getAllNodes().length - getFreeNodes().length];
+        ArrayList<Node> sortedNodes = new ArrayList<>();
 
         // Filling SortedNodes array
-        for (int i = 0; i < getAllNodes().length; i++)
-            if (getAllNodes()[i].getOwner() != 0)
-                sortedNodes[i] = getAllNodes()[i];
+        for (Node node : getAllNodes())
+            if (node.getOwner() != 0)
+                sortedNodes.add(node);
 
         // Sorting sortedNodes array in increasing order
         Node temp;
-        for (int i = 0; i < sortedNodes.length; i++)
-            for (int j = 0; j < sortedNodes.length - i - 1; j++)
-                if (sortedNodes[j].getArmyCount() > sortedNodes[j + 1].getArmyCount()) {
-                    temp = sortedNodes[j + 1];
-                    sortedNodes[j + 1] = sortedNodes[j];
-                    sortedNodes[j] = temp;
+        for (int i = 0; i < sortedNodes.size(); i++)
+            for (int j = 0; j < sortedNodes.size() - i - 1; j++)
+                if (sortedNodes.get(j).getArmyCount() > sortedNodes.get(j + 1).getArmyCount()) {
+                    temp = sortedNodes.get(j + 1);
+                    sortedNodes.set(j + 1, sortedNodes.get(j));
+                    sortedNodes.set(j, temp);
                 }
 
         // Subtracting sortedNodes array's members
-        int[] differences = new int[sortedNodes.length - 1];
-        for (int i = 0; i < sortedNodes.length; i++)
-            differences[i] = sortedNodes[i + 1].getArmyCount() - sortedNodes[i].getArmyCount();
+        int[] differences = new int[sortedNodes.size() - 1];
+        for (int i = 0; i < sortedNodes.size() - 1; i++)
+            differences[i] = sortedNodes.get(i + 1).getArmyCount() - sortedNodes.get(i).getArmyCount();
 
         // Finding top 3 biggest numbers of differences array
         int[] topThreeIndex = new int[3];
-        Arrays.fill(topThreeIndex, -1);
-        for (int i = 0; i < differences.length; i++)
-            insertBiggerIndex(differences, topThreeIndex, i);
+        int[] topThreeValue = new int[3];
+        Arrays.fill(topThreeIndex, Integer.MIN_VALUE);
+        Arrays.fill(topThreeValue, Integer.MIN_VALUE);
+        for (int i = 0; i < differences.length; i++) {
+            if (differences[i] > topThreeValue[0]) {
+                topThreeValue[2] = topThreeValue[1];
+                topThreeValue[1] = topThreeValue[0];
+                topThreeValue[0] = differences[i];
+                topThreeIndex[2] = topThreeIndex[1];
+                topThreeIndex[1] = topThreeIndex[0];
+                topThreeIndex[0] = i;
+            } else if (differences[i] > topThreeValue[1]) {
+                topThreeValue[2] = topThreeValue[1];
+                topThreeValue[1] = differences[i];
+                topThreeIndex[2] = topThreeIndex[1];
+                topThreeIndex[0] = i;
+            } else if (differences[i] > topThreeValue[2]) {
+                topThreeValue[2] = differences[i];
+                topThreeIndex[2] = i;
+            }
+        }
+
 
         // Sorting topThreeIndex array in increasing order
-        int temp2;
-        for (int i = 0; i < topThreeIndex.length; i++)
-            for (int j = 0; j < topThreeIndex.length - i - 1; j++)
-                if (differences[topThreeIndex[j]] > differences[topThreeIndex[j + 1]]) {
-                    temp2 = topThreeIndex[j + 1];
+        int tempIdx;
+        int tempVal;
+        for (int i = 0; i < topThreeValue.length; i++)
+            for (int j = 0; j < topThreeValue.length - i - 1; j++)
+                if (topThreeValue[j] > topThreeValue[j + 1]) {
+                    tempVal = topThreeValue[j + 1];
+                    tempIdx = topThreeIndex[j + 1];
+                    topThreeValue[j + 1] = topThreeValue[j];
                     topThreeIndex[j + 1] = topThreeIndex[j];
-                    topThreeIndex[j] = temp2;
+                    topThreeValue[j] = tempVal;
+                    topThreeIndex[j] = tempIdx;
                 }
 
-        if (inArmyCount <= differences[topThreeIndex[0]])
+        if (inArmyCount <= sortedNodes.get(topThreeIndex[0] + 1).getArmyCount())
             return 1;
-        else if (inArmyCount <= differences[topThreeIndex[1]])
+        else if (inArmyCount <= sortedNodes.get(topThreeIndex[1] + 1).getArmyCount())
             return 2;
-        else if (inArmyCount <= differences[topThreeIndex[2]])
+        else if (inArmyCount <= sortedNodes.get(topThreeIndex[2] + 1).getArmyCount())
             return 3;
         else
             return 4;
-    }
-
-    private void insertBiggerIndex(int[] inArray, int[] inTopIndexHolder, int inIndex) {
-        for (int i = 0; i < inTopIndexHolder.length; i++)
-            if (inTopIndexHolder[i] == -1)
-                inTopIndexHolder[i] = inIndex;
-        int tempIndexHolder = -1;
-        int biggest = Integer.MAX_VALUE;
-        for (int i = 0; i < inTopIndexHolder.length; i++)
-            if (biggest >= inArray[inTopIndexHolder[i]]) {
-                biggest = inArray[inTopIndexHolder[i]];
-                tempIndexHolder = i;
-            }
-        inTopIndexHolder[tempIndexHolder] = inIndex;
     }
 
     /**
