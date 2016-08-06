@@ -179,6 +179,7 @@ public class Server {
 
             if (debug) {
                 System.out.println(ansi().render("@|cyan GET /getid:|@ "));
+                System.out.println(ansi().render("  @|yellow Sent ID:|@ " + res.body()));
                 System.out.println(ansi().render("  @|yellow Total Players:|@ " + _maxPlayers));
                 System.out.println(ansi().render("  @|yellow Current Players|@: " + _connectedPlayers));
                 System.out.print(ansi().render("  @|yellow More Players Allowed?|@ "));
