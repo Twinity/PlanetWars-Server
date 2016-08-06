@@ -19,6 +19,7 @@ public class ServerConfig {
     private static int _minThreads = 2;
     private static int _maxThreads = 8;
     private static int _timeout = 5000;
+    private static boolean _debugMode = false;
 
     /**
      * Gets server's port
@@ -50,6 +51,14 @@ public class ServerConfig {
      */
     public static int getTimeout() {
         return _timeout;
+    }
+
+    /**
+     * Gets server's debug mode state
+     * @return Returns a boolean showing if server is on debug mode or not
+     */
+    public static boolean isDebugMode() {
+        return _debugMode;
     }
 
     /**
@@ -99,6 +108,14 @@ public class ServerConfig {
     public static void setTimeout(int inTimeout) {
         if (inTimeout > 0 && inTimeout < Integer.MAX_VALUE)
             _timeout = inTimeout;
+    }
+
+    /**
+     * Sets the server's debug mode state
+     * @param inToggle A boolean setting the debug mode on/off
+     */
+    public static void setDebugMode(boolean inToggle) {
+        _debugMode = inToggle;
     }
 
 }
