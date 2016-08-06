@@ -25,6 +25,12 @@
             <artifactId>slf4j-nop</artifactId>
             <version>1.7.13</version>
         </dependency>
+        <!-- Colored console -->
+        <dependency>
+            <groupId>org.fusesource.jansi</groupId>
+            <artifactId>jansi</artifactId>
+            <version>1.13</version>
+        </dependency>
     </dependencies>
 
 </project>
