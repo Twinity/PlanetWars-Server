@@ -19,6 +19,12 @@
             <artifactId>spark-core</artifactId>
             <version>2.5</version>
         </dependency>
+        <!-- This removes slf4j class not found error -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>1.7.13</version>
+        </dependency>
     </dependencies>
 
 </project>
