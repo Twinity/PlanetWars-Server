@@ -68,13 +68,13 @@ public class World {
      */
     // TODO: Should separate game's rules from updating the map.
     private void updateMap(ArmyMovement[] inArmyMovement, int inMyId) {
-        for (int i = 0; i < inArmyMovement.length; i++) {
+        for (ArmyMovement movement : inArmyMovement) {
             // Source node of the issued command
-            Node src = getMap().getNode(inArmyMovement[i].getSource());
+            Node src = getMap().getNode(movement.getSource());
             // Destination node of the issued command
-            Node dest = getMap().getNode(inArmyMovement[i].getDestination());
+            Node dest = getMap().getNode(movement.getDestination());
             // Amount of the soldiers issued to move
-            int ac = inArmyMovement[i].getArmyCount();
+            int ac = movement.getArmyCount();
 
             // If the movement's destination is a neutral node
             if (dest.getOwner() == 0) {
@@ -121,10 +121,10 @@ public class World {
         ArrayList<ArmyMovement> amArray = new ArrayList<>(Arrays.asList(inArmyMovement));
         boolean valid = false;
 
-        for (ArmyMovement am : amArray) {
+        for (ArmyMovement movement : amArray) {
             // Checks to see if the indicated source index belongs to the player.
             for (int j = 0; j < getMap().getMyNodes(inMyId).length; j++) {
-                if (am.getSource() == getMap().getMyNodes(inMyId)[j].getId()) {
+                if (movement.getSource() == getMap().getMyNodes(inMyId)[j].getId()) {
                     valid = true;
                     // If the matching source found in one of my nodes, break the loop.
                     break;
@@ -132,7 +132,7 @@ public class World {
             }
             // If the movement is not valid, pop it out of the array
             if (!valid)
-                amArray.remove(am);
+                amArray.remove(movement);
             // If the first phase (Source validation) is passed
             else {
                 valid = false;
@@ -140,8 +140,8 @@ public class World {
                  * Check to see if the destination of the current ArmyMovement is in the
                  * node's adjacents with the same id as the ArmyMovement's source.
                  */
-                for (int adj : getMap().getNode(am.getSource()).getAdjacents()) {
-                    if (am.getDestination() == adj) {
+                for (int adj : getMap().getNode(movement.getSource()).getAdjacents()) {
+                    if (movement.getDestination() == adj) {
                         valid = true;
                         break;
                     }
@@ -149,7 +149,7 @@ public class World {
 
                 // If the destination is invalid, pop the current ArmyMovement out.
                 if (!valid)
-                    amArray.remove(am);
+                    amArray.remove(movement);
                 /**
                  * Check if the ArmyMovement has currect values for army count.
                  * Correct them if needed.
@@ -157,11 +157,11 @@ public class World {
 
                 else {
                     // If the army count in ArmyMovement is below zero, set it to zero
-                    if (am.getArmyCount() < 0)
-                        am.setArmyCount(0);
+                    if (movement.getArmyCount() < 0)
+                        movement.setArmyCount(0);
                     // If the player is moving more army than he has, set it to the maximum he has.
-                    else if (am.getArmyCount() > getMap().getNode(am.getSource()).getArmyCount())
-                        am.setArmyCount(getMap().getNode(am.getSource()).getArmyCount());
+                    else if (movement.getArmyCount() > getMap().getNode(movement.getSource()).getArmyCount())
+                        movement.setArmyCount(getMap().getNode(movement.getSource()).getArmyCount());
                 }
             }
         }
