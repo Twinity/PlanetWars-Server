@@ -9,7 +9,6 @@ package com.twinity.PlanetWarsServer;
 import com.google.gson.Gson;
 import spark.Spark;
 import static org.fusesource.jansi.Ansi.*;
-import static org.fusesource.jansi.Ansi.Color.*;
 
 public class Server {
 
