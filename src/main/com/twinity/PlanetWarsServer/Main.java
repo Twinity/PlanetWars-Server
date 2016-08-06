@@ -9,7 +9,6 @@ package com.twinity.PlanetWarsServer;
 
 import org.fusesource.jansi.AnsiConsole;
 
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
