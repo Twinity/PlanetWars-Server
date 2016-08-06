@@ -41,7 +41,6 @@ public class Main {
         String map = arguments.get(idx + 1);
 
         // Reads map from MapReader object
-        // TODO: A dynamic map name should be passed from args[]
         MapReader mapReader = new MapReader(map);
         // MapReader.read() returns a Map which is passed into the World object
         World world = new World(mapReader.read());
