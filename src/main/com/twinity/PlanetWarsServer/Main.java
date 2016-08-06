@@ -18,7 +18,7 @@ public class Main {
 
     /**
      * main function which is the starting point of the app
-     * @param args TODO: Should contain path to the map file
+     * @param args Command-line arguments ([-d|--debug=true] [-m|--map] "~/path/to/map.json")
      */
     public static void main(String[] args) {
         ArrayList<String> arguments = new ArrayList<>(Arrays.asList(args));
