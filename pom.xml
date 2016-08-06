@@ -6,7 +6,7 @@
 
     <groupId>com.twinity</groupId>
     <artifactId>PlanetWars-Server</artifactId>
-    <version>0.2-alpha</version>
+    <version>0.3.0</version>
 
     <dependencies>
         <dependency>
@@ -18,6 +18,18 @@
             <groupId>com.sparkjava</groupId>
             <artifactId>spark-core</artifactId>
             <version>2.5</version>
+        </dependency>
+        <!-- This removes slf4j class not found error -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>1.7.13</version>
+        </dependency>
+        <!-- Colored console -->
+        <dependency>
+            <groupId>org.fusesource.jansi</groupId>
+            <artifactId>jansi</artifactId>
+            <version>1.13</version>
         </dependency>
     </dependencies>
 

@@ -8,6 +8,8 @@ package com.twinity.PlanetWarsServer;
 
 import com.google.gson.Gson;
 import spark.Spark;
+import static org.fusesource.jansi.Ansi.*;
+import static org.fusesource.jansi.Ansi.Color.*;
 
 public class Server {
 
@@ -31,6 +33,8 @@ public class Server {
      */
     private int _player1Turn = 0;
     private int _player2Turn = 0;
+    // Is on debug mode?
+    private boolean debug;
 
     /**
      * Server Constructor
@@ -51,7 +55,13 @@ public class Server {
         _world = inWorld;
         _world.getMap().initializer(_player1Id, _player2Id);
         this.setConfigs();
+        // Get debug mode (Is set before creating Server object)
+        debug = ServerConfig.isDebugMode();
         this.startRouting();
+        if (debug) {
+            System.out.print(ansi().eraseScreen().render("@|green Server started.|@ "));
+            System.out.println("Listening on http://localhost:" + ServerConfig.getPort() + "/");
+        }
     }
 
     /**
@@ -88,6 +98,10 @@ public class Server {
             _player2Id = (int)Math.round(Math.random() * 999) + 1;
         }
         while(_player2Id == _player1Id);
+        if (debug) {
+            System.out.println(ansi().render("@|yellow Player 1@|: " + _player1Id));
+            System.out.println(ansi().render("@|yellow Player 2@|: " + _player2Id));
+        }
     }
 
     /**
@@ -131,6 +145,13 @@ public class Server {
             // Creates a JSON from the populated WorldInfo and sets it as Response Body
             res.body(new Gson().toJson(worldInfo));
             res.header("Content-type", "application/json");
+
+            if (debug){
+                System.out.println(ansi().render("@|cyan GET /serverdata@|: "));
+                System.out.println(ansi().render("  @|yellow From|@: " + reqPlayer));
+                System.out.println(ansi().render("  @|yellow P1 Turn|@: " + _player1Turn));
+                System.out.println(ansi().render("  @|yellow P2 Turn|@: " + _player2Turn));
+            }
             // Returns a JSON with proper WorldInfo
             return res.body();
         });
@@ -156,6 +177,18 @@ public class Server {
                 res.body("null");
             }
 
+            if (debug) {
+                System.out.println(ansi().render("@|cyan GET /getid:|@ "));
+                System.out.println(ansi().render("  @|yellow Sent ID:|@ " + res.body()));
+                System.out.println(ansi().render("  @|yellow Total Players:|@ " + _maxPlayers));
+                System.out.println(ansi().render("  @|yellow Current Players|@: " + _connectedPlayers));
+                System.out.print(ansi().render("  @|yellow More Players Allowed?|@ "));
+                if (_connectedPlayers >= _maxPlayers)
+                    System.out.println(ansi().render("@|red NO|@"));
+                else
+                    System.out.println(ansi().render("@|green YES|@"));
+            }
+
             return res.body();
         });
 
@@ -171,6 +204,11 @@ public class Server {
             int playerId = Integer.parseInt(req.headers("X-Request-ID"));
             _world.moveArmy(clientArmyMovement, playerId);
             res.body("OK");
+
+            if (debug) {
+                System.out.println(ansi().render("@|cyan POST /clientdata:|@ "));
+                System.out.println(ansi().render("  @|yellow From:|@ " + playerId));
+            }
             return res.body();
         });
     }
