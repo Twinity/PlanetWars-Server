@@ -140,7 +140,7 @@ public class Server {
             }
 
             // Creates and populates WorldInfo with real World's data
-            WorldInfo worldInfo = new WorldInfo().populate(_world, reqPlayer);
+            WorldInfo worldInfo = new WorldInfo(_world, reqPlayer);
             // Creates a JSON from the populated WorldInfo and sets it as Response Body
             res.body(new Gson().toJson(worldInfo));
             res.header("Content-type", "application/json");
