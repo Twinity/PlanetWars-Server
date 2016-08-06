@@ -7,6 +7,8 @@
 
 package com.twinity.PlanetWarsServer;
 
+import org.fusesource.jansi.AnsiConsole;
+
 import java.nio.file.Paths;
 import java.util.Arrays;
 
@@ -20,6 +22,8 @@ public class Main {
         // If debug mode is set
         if (Arrays.asList(args).contains("--debug=true") || Arrays.asList(args).contains("-d")) {
             ServerConfig.setDebugMode(true);
+            // Start AnsiConsole
+            AnsiConsole.systemInstall();
         }
         // Reads map from MapReader object
         // TODO: A dynamic map name should be passed from args[]

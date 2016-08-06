@@ -8,6 +8,8 @@ package com.twinity.PlanetWarsServer;
 
 import com.google.gson.Gson;
 import spark.Spark;
+import static org.fusesource.jansi.Ansi.*;
+import static org.fusesource.jansi.Ansi.Color.*;
 
 public class Server {
 
@@ -56,8 +58,10 @@ public class Server {
         // Get debug mode (Is set before creating Server object)
         debug = ServerConfig.isDebugMode();
         this.startRouting();
-        if (debug)
-            System.out.println("Server started. Listening on http://localhost:" + ServerConfig.getPort() + "/");
+        if (debug) {
+            System.out.print(ansi().eraseScreen().render("@|green Server started.|@ "));
+            System.out.println("Listening on http://localhost:" + ServerConfig.getPort() + "/");
+        }
     }
 
     /**
@@ -95,8 +99,8 @@ public class Server {
         }
         while(_player2Id == _player1Id);
         if (debug) {
-            System.out.println("Player 1: " + _player1Id);
-            System.out.println("Player 2: " + _player2Id);
+            System.out.println(ansi().render("@|yellow Player 1@|: " + _player1Id));
+            System.out.println(ansi().render("@|yellow Player 2@|: " + _player2Id));
         }
     }
 
@@ -143,10 +147,10 @@ public class Server {
             res.header("Content-type", "application/json");
 
             if (debug){
-                System.out.println("GET /serverdata: ");
-                System.out.println("  From: " + reqPlayer);
-                System.out.println("  P1 Turn: " + _player1Turn);
-                System.out.println("  P2 Turn: " + _player2Turn);
+                System.out.println(ansi().render("@|cyan GET /serverdata@|: "));
+                System.out.println(ansi().render("  @|yellow From|@: " + reqPlayer));
+                System.out.println(ansi().render("  @|yellow P1 Turn|@: " + _player1Turn));
+                System.out.println(ansi().render("  @|yellow P2 Turn|@: " + _player2Turn));
             }
             // Returns a JSON with proper WorldInfo
             return res.body();
@@ -174,14 +178,14 @@ public class Server {
             }
 
             if (debug) {
-                System.out.println("GET /getid: ");
-                System.out.println("  Total Players: " + _maxPlayers);
-                System.out.println("  Current Players: " + _connectedPlayers);
-                System.out.print("  More Players Allowed? ");
+                System.out.println(ansi().render("@|cyan GET /getid:|@ "));
+                System.out.println(ansi().render("  @|yellow Total Players:|@ " + _maxPlayers));
+                System.out.println(ansi().render("  @|yellow Current Players|@: " + _connectedPlayers));
+                System.out.print(ansi().render("  @|yellow More Players Allowed?|@ "));
                 if (_connectedPlayers >= _maxPlayers)
-                    System.out.println("NO");
+                    System.out.println(ansi().render("@|red NO|@"));
                 else
-                    System.out.println("YES");
+                    System.out.println(ansi().render("@|green YES|@"));
             }
 
             return res.body();
@@ -201,8 +205,8 @@ public class Server {
             res.body("OK");
 
             if (debug) {
-                System.out.println("POST /clientdata: ");
-                System.out.println("  From: " + playerId);
+                System.out.println(ansi().render("@|cyan POST /clientdata:|@ "));
+                System.out.println(ansi().render("  @|yellow From:|@ " + playerId));
             }
             return res.body();
         });
