@@ -1,7 +1,7 @@
 /**
  * @author    Mohammad reza Hajianpour <hajianpour.mr@gmail.com>
- * @version   1.2
- * @since     1.1
+ * @version   0.3.1
+ * @since     0.1.1
  */
 
 package com.twinity.PlanetWarsServer;
