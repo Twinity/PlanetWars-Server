@@ -58,7 +58,7 @@ public class Server {
         debug = ServerConfig.isDebugMode();
         this.startRouting();
         if (debug) {
-            System.out.print(ansi().eraseScreen().render("@|green Server started.|@ "));
+            System.out.print(ansi().render("@|green Server started.|@ "));
             System.out.println("Listening on http://localhost:" + ServerConfig.getPort() + "/");
         }
     }
