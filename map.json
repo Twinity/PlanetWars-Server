@@ -4,20 +4,20 @@
 	"allNodes": [
 		{
 			"id": 101,
-			"armyCount": 10,
+			"armyCount": 15,
 			"owner": 1,
 			"adjacents": [102, 103, 104]
 		},
 		{
 			"id": 102,
-			"armyCount": 0,
-			"owner": 0,
+			"armyCount": 7,
+			"owner": 1,
 			"adjacents": [101, 103, 105]
 		},
 		{
 			"id": 103,
-			"armyCount": 0,
-			"owner": 0,
+			"armyCount": 25,
+			"owner": 1,
 			"adjacents": [101, 102, 104, 105, 106, 107]
 		},
 		{
@@ -46,14 +46,14 @@
 		},
 		{
 			"id": 108,
-			"armyCount": 0,
-			"owner": 0,
+			"armyCount": 19,
+			"owner": 2,
 			"adjacents": [105, 106, 110]
 		},
 		{
 			"id": 109,
-			"armyCount": 0,
-			"owner": 0,
+			"armyCount": 16,
+			"owner": 2,
 			"adjacents": [106, 107, 110]
 		},
 		{
