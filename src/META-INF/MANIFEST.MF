@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Class-Path: lib/gson-2.7.jar lib/jansi-1.13.jar lib/javax.servlet-api-
+ 3.1.0.jar lib/jetty-http-9.3.6.v20151106.jar lib/jetty-io-9.3.6.v2015
+ 1106.jar lib/jetty-security--9.3.6.v20151106.jar lib/jetty-server-9.3
+ .6.v20151106.jar lib/jetty-servlet-9.3.6.v20151106.jar lib/jetty-util
+ -9.3.6.v20151106.jar lib/jetty-webapp-9.3.6.v20151106.jar lib/jetty-x
+ ml-9.3.6.v20151106.jar lib/slf4j-api-1.7.13.jar lib/slf4j-nop-1.7.13.
+ jar lib/spark-core-2.5.jar lib/websocket-api-9.3.6.v20151106.jar lib/
+ websocket-client-9.3.6.v20151106.jar lib/websocket-common-9.3.6.v2015
+ 1106.jar lib/websocket-server-9.3.6.v20151106.jar lib/websocket-servl
+ et-9.3.6.v20151106.jar
+Main-Class: com.twinity.PlanetWarsServer.Main
+

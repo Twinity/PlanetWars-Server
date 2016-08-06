@@ -9,7 +9,6 @@ package com.twinity.PlanetWarsServer;
 import com.google.gson.Gson;
 import spark.Spark;
 import static org.fusesource.jansi.Ansi.*;
-import static org.fusesource.jansi.Ansi.Color.*;
 
 public class Server {
 
@@ -59,7 +58,7 @@ public class Server {
         debug = ServerConfig.isDebugMode();
         this.startRouting();
         if (debug) {
-            System.out.print(ansi().eraseScreen().render("@|green Server started.|@ "));
+            System.out.print(ansi().render("@|green Server started.|@ "));
             System.out.println("Listening on http://localhost:" + ServerConfig.getPort() + "/");
         }
     }

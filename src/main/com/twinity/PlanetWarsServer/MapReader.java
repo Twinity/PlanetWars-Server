@@ -12,6 +12,8 @@ import com.google.gson.stream.JsonReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+import static org.fusesource.jansi.Ansi.ansi;
+
 public class MapReader {
 
     private String _path;
@@ -35,7 +37,8 @@ public class MapReader {
         try {
             _reader = new JsonReader(new FileReader(_path));
         } catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println(ansi().render("@|red Could not find or read map from " + _path + ".|@"));
+            System.exit(1);
         }
         return _gson.fromJson(_reader, Map.class);
     }
