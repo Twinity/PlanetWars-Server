@@ -202,11 +202,11 @@ public class Map {
                     topThreeIndex[j] = tempIdx;
                 }
 
-        if (inArmyCount <= sortedNodes.get(topThreeIndex[0] + 1).getArmyCount())
+        if (inArmyCount <= sortedNodes.get(topThreeIndex[0]).getArmyCount())
             return 1;
-        else if (inArmyCount <= sortedNodes.get(topThreeIndex[1] + 1).getArmyCount())
+        else if (inArmyCount <= sortedNodes.get(topThreeIndex[1]).getArmyCount())
             return 2;
-        else if (inArmyCount <= sortedNodes.get(topThreeIndex[2] + 1).getArmyCount())
+        else if (inArmyCount <= sortedNodes.get(topThreeIndex[2]).getArmyCount())
             return 3;
         else
             return 4;
