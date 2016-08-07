@@ -110,7 +110,6 @@ public class Map {
         ArrayList<Node> opponentNodes = new ArrayList<>();
         for (Node node : this.getAllNodes())
             if (node.getOwner() != inMyId && node.getOwner() != 0) {
-                node.setArmyCount(getStrengthLevel(node.getArmyCount()));
                 opponentNodes.add(node);
             }
 
