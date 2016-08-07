@@ -191,8 +191,8 @@ public class Map {
         // Sorting topThreeIndex array in increasing order
         int tempIdx;
         int tempVal;
-        for (int i = 0; i < topThreeValue.length; i++)
-            for (int j = 0; j < topThreeValue.length - i - 1; j++)
+        for (int i = 0; i < topThreeValue.length; i++) {
+            for (int j = 0; j < topThreeValue.length - i - 1; j++) {
                 if (topThreeValue[j] > topThreeValue[j + 1]) {
                     tempVal = topThreeValue[j + 1];
                     tempIdx = topThreeIndex[j + 1];
@@ -201,6 +201,8 @@ public class Map {
                     topThreeValue[j] = tempVal;
                     topThreeIndex[j] = tempIdx;
                 }
+            }
+        }
 
         if (inArmyCount <= sortedNodes.get(topThreeIndex[0] + 1).getArmyCount())
             return 1;
