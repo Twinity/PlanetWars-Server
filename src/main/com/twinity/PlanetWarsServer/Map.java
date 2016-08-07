@@ -71,7 +71,9 @@ public class Map {
      */
     public Node[] getFilteredAllNodes(int inMyId) {
         ArrayList<Node> allNodes = new ArrayList<>();
-        for (Node node : this.getAllNodes())
+        // Get a copy of getAllNodes() instead of changing it directly
+        Node[] rawAllNodes = getAllNodes();
+        for (Node node : rawAllNodes)
             // If the node is the enemy's, set it as approximate strength, instead of the exact army count
             if (node.getOwner() != inMyId && node.getOwner() != 0) {
                 node.setArmyCount(getStrengthLevel(node.getArmyCount()));
@@ -90,7 +92,9 @@ public class Map {
      */
     public Node[] getMyNodes(int inMyId) {
         ArrayList<Node> myNodes = new ArrayList<>();
-        for (Node node : this.getAllNodes())
+        // Get a copy of getAllNodes() instead of changing it directly
+        Node[] rawAllNodes = getAllNodes();
+        for (Node node : rawAllNodes)
             if (node.getOwner() == inMyId)
                 myNodes.add(node);
 
@@ -108,7 +112,9 @@ public class Map {
      */
     public Node[] getOpponentNodes(int inMyId) {
         ArrayList<Node> opponentNodes = new ArrayList<>();
-        for (Node node : this.getAllNodes())
+        // Get a copy of getAllNodes() instead of changing it directly
+        Node[] rawAllNodes = getAllNodes();
+        for (Node node : rawAllNodes)
             if (node.getOwner() != inMyId && node.getOwner() != 0) {
                 opponentNodes.add(node);
             }
@@ -123,7 +129,9 @@ public class Map {
      */
     public Node[] getFreeNodes() {
         ArrayList<Node> freeNodes = new ArrayList<>();
-        for (Node node : this.getAllNodes())
+        // Get a copy of getAllNodes() instead of changing it directly
+        Node[] rawAllNodes = getAllNodes();
+        for (Node node : rawAllNodes)
             if (node.getOwner() == 0)
                 freeNodes.add(node);
 
@@ -141,9 +149,11 @@ public class Map {
      */
     private int getStrengthLevel(int inArmyCount) {
         ArrayList<Node> sortedNodes = new ArrayList<>();
+        // Get a copy of getAllNodes() instead of changing it directly
+        Node[] rawAllNodes = getAllNodes();
 
         // Filling SortedNodes array
-        for (Node node : getAllNodes())
+        for (Node node : rawAllNodes)
             if (node.getOwner() != 0)
                 sortedNodes.add(node);
 
