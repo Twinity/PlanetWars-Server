@@ -98,8 +98,8 @@ public class Server {
         }
         while(_player2Id == _player1Id);
         if (debug) {
-            System.out.println(ansi().render("@|yellow Player 1@|: " + _player1Id));
-            System.out.println(ansi().render("@|yellow Player 2@|: " + _player2Id));
+            System.out.println(ansi().render("@|yellow Player 1|@: " + _player1Id));
+            System.out.println(ansi().render("@|yellow Player 2|@: " + _player2Id));
         }
     }
 
@@ -146,7 +146,7 @@ public class Server {
             res.header("Content-type", "application/json");
 
             if (debug){
-                System.out.println(ansi().render("@|cyan GET /serverdata@|: "));
+                System.out.println(ansi().render("@|cyan GET /serverdata|@: "));
                 System.out.println(ansi().render("  @|yellow From|@: " + reqPlayer));
                 System.out.println(ansi().render("  @|yellow P1 Turn|@: " + _player1Turn));
                 System.out.println(ansi().render("  @|yellow P2 Turn|@: " + _player2Turn));
